@@ -6,8 +6,9 @@
 
 using namespace std;
 
-Pipeline::Pipeline(int capacity, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b) {
+Pipeline::Pipeline(int capacity, string code, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b) {
     this->flow = 0;
+    this->code = code;
     this->capacity = capacity;
     this->service_point_a = service_point_a;
     this->service_point_b = service_point_b;
@@ -17,6 +18,14 @@ Pipeline::Pipeline(int capacity, service_point service_point_a, service_point se
 
 int Pipeline::getCapacity() {
     return this->capacity;
+}
+
+int Pipeline::getFlow() {
+    return this->flow;
+}
+
+void Pipeline::setFlow(int flow) {
+    this->flow = flow;
 }
 
 service_point Pipeline::getServicePointA() {

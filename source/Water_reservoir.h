@@ -18,8 +18,8 @@ private:
     std::string name;
     std::string municipality;
     int maximum_delivery;
-    std::vector<Pipeline*> input_pipelines;
-    std::vector<Pipeline*> output_pipelines;
+    std::vector<std::string> input_pipelines;
+    std::vector<std::string> output_pipelines;
 public:
     Water_reservoir(int id, std::string code, std::string name, std::string municipality, int maximum_delivery);
     int getId();
@@ -27,10 +27,10 @@ public:
     std::string getName();
     std::string getMunicipality();
     int getMaximumDelivery();
-    void addInputPipeline(Pipeline *pipeline);
-    void removeInputPipeline(Pipeline *pipeline);
-    void addOutputPipeline(Pipeline *pipeline);
-    void removeOutputPipeline(Pipeline *pipeline);
+    void addInputPipeline(std::string pipeline_code);
+    void removeInputPipeline(std::string pipeline_code);
+    void addOutputPipeline(std::string pipeline_code);
+    void removeOutputPipeline(std::string pipeline_code);
     bool operator==(const Water_reservoir &other) const;
 };
 

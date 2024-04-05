@@ -11,8 +11,8 @@ City::City(int id, string code, string name, double demand, int population) {
     this->name = name;
     this->demand = demand;
     this->population = population;
-    this->input_pipelines = vector<Pipeline*>();
-    this->output_pipelines = vector<Pipeline*>();
+    this->input_pipelines_codes = vector<std::string>();
+    this->output_pipelines_codes = vector<std::string>();
 }
 
 int City::getId() {
@@ -35,27 +35,27 @@ int City::getPopulation() {
     return this->population;
 }
 
-void City::addInputPipeline(Pipeline *pipeline) {
-    this->input_pipelines.push_back(pipeline);
+void City::addInputPipeline(string pipeline_code) {
+    this->input_pipelines_codes.push_back(pipeline_code);
 }
 
-void City::removeInputPipeline(Pipeline *pipeline) {
-    for (int i = 0; i < this->input_pipelines.size(); i++) {
-        if (this->input_pipelines[i] == pipeline) {
-            this->input_pipelines.erase(this->input_pipelines.begin() + i);
+void City::removeInputPipeline(string pipeline_code) {
+    for (int i = 0; i < this->input_pipelines_codes.size(); i++) {
+        if (this->input_pipelines_codes[i] == pipeline_code) {
+            this->input_pipelines_codes.erase(this->input_pipelines_codes.begin() + i);
             break;
         }
     }
 }
 
-void City::addOutputPipeline(Pipeline *pipeline) {
-    this->output_pipelines.push_back(pipeline);
+void City::addOutputPipeline(string pipeline_code) {
+    this->output_pipelines_codes.push_back(pipeline_code);
 }
 
-void City::removeOutputPipeline(Pipeline *pipeline) {
-    for (int i = 0; i < this->output_pipelines.size(); i++) {
-        if (this->output_pipelines[i] == pipeline) {
-            this->output_pipelines.erase(this->output_pipelines.begin() + i);
+void City::removeOutputPipeline(string pipeline_code) {
+    for (int i = 0; i < this->output_pipelines_codes.size(); i++) {
+        if (this->output_pipelines_codes[i] == pipeline_code) {
+            this->output_pipelines_codes.erase(this->output_pipelines_codes.begin() + i);
             break;
         }
     }

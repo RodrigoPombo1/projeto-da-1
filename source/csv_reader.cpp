@@ -146,79 +146,97 @@ void csv_reader::read_pipes_csv() {
                 break;
             }
         }
-        Pipeline pipe(stoi(capacity), service_point_a, service_point_b, service_point_type_a, service_point_type_b);
-        this->pipes.push_back(pipe);
+        string pipe_code = service_point_a_code + "_to_" + service_point_b_code;
+        Pipeline pipe(stoi(capacity), pipe_code, service_point_a, service_point_b, service_point_type_a, service_point_type_b);
+        this->pipes.insert({pipe_code,pipe});
         // add the pipe to the service points
         // case where its unidirectional
         if (is_unidirectional) {
             switch (service_point_type_a) {
                 case CITY : {
-                    this->cities.at(service_point_a_code).addOutputPipeline(&this->pipes.back());
+                    this->cities.at(service_point_a_code).addOutputPipeline(pipe_code);
                     break;
                 }
                 case PUMPING_STATION : {
-                    this->stations.at(service_point_a_code).addOutputPipeline(&this->pipes.back());
+                    this->stations.at(service_point_a_code).addOutputPipeline(pipe_code);
                     break;
                 }
                 case WATER_RESERVOIR : {
-                    this->reservoirs.at(service_point_a_code).addOutputPipeline(&this->pipes.back());
+                    this->reservoirs.at(service_point_a_code).addOutputPipeline(pipe_code);
                     break;
                 }
             }
             switch (service_point_type_b) {
                 case CITY : {
-                    this->cities.at(service_point_b_code).addInputPipeline(&this->pipes.back());
+                    this->cities.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
                 case PUMPING_STATION : {
-                    this->stations.at(service_point_b_code).addInputPipeline(&this->pipes.back());
+                    this->stations.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
                 case WATER_RESERVOIR : {
-                    this->reservoirs.at(service_point_b_code).addInputPipeline(&this->pipes.back());
+                    this->reservoirs.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
             }
         }
         // case where its bidirectional
         else {
-            Pipeline reverse_pipe = Pipeline(stoi(capacity), service_point_b, service_point_a, service_point_type_b, service_point_type_a);
-            this->pipes.push_back(reverse_pipe);
+            string reverse_pipe_code = service_point_b_code + "_to_" + service_point_a_code;
+            Pipeline reverse_pipe = Pipeline(stoi(capacity), reverse_pipe_code, service_point_b, service_point_a, service_point_type_b, service_point_type_a);
+            this->pipes.insert({reverse_pipe_code, reverse_pipe});
             switch (service_point_type_a) {
                 case CITY : {
-                    this->cities.at(service_point_a_code).addOutputPipeline(&this->pipes.back()-1);
-                    this->cities.at(service_point_a_code).addInputPipeline(&this->pipes.back());
+                    this->cities.at(service_point_a_code).addOutputPipeline(pipe_code);
+                    this->cities.at(service_point_a_code).addInputPipeline(reverse_pipe_code);
                     break;
                 }
                 case PUMPING_STATION : {
-                    this->stations.at(service_point_a_code).addOutputPipeline(&this->pipes.back()-1);
-                    this->stations.at(service_point_a_code).addInputPipeline(&this->pipes.back());
+                    this->stations.at(service_point_a_code).addOutputPipeline(pipe_code);
+                    this->stations.at(service_point_a_code).addInputPipeline(reverse_pipe_code);
                     break;
                 }
                 case WATER_RESERVOIR : {
-                    this->reservoirs.at(service_point_a_code).addOutputPipeline(&this->pipes.back()-1);
-                    this->reservoirs.at(service_point_a_code).addInputPipeline(&this->pipes.back());
+                    this->reservoirs.at(service_point_a_code).addOutputPipeline(pipe_code);
+                    this->reservoirs.at(service_point_a_code).addInputPipeline(reverse_pipe_code);
                     break;
                 }
             }
             switch (service_point_type_b) {
                 case CITY : {
-                    this->cities.at(service_point_b_code).addOutputPipeline(&this->pipes.back()-1);
-                    this->cities.at(service_point_b_code).addInputPipeline(&this->pipes.back());
+                    this->cities.at(service_point_b_code).addOutputPipeline(reverse_pipe_code);
+                    this->cities.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
                 case PUMPING_STATION : {
-                    this->stations.at(service_point_b_code).addOutputPipeline(&this->pipes.back()-1);
-                    this->stations.at(service_point_b_code).addInputPipeline(&this->pipes.back());
+                    this->stations.at(service_point_b_code).addOutputPipeline(reverse_pipe_code);
+                    this->stations.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
                 case WATER_RESERVOIR : {
-                    this->reservoirs.at(service_point_b_code).addOutputPipeline(&this->pipes.back()-1);
-                    this->reservoirs.at(service_point_b_code).addInputPipeline(&this->pipes.back());
+                    this->reservoirs.at(service_point_b_code).addOutputPipeline(reverse_pipe_code);
+                    this->reservoirs.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
             }
         }
     }
     file.close();
+}
+
+unordered_map<string, City> csv_reader::getCities() {
+    return this->cities;
+}
+
+unordered_map<string, Pipeline> csv_reader::getPipes() {
+    return this->pipes;
+}
+
+unordered_map<string, Water_reservoir> csv_reader::getReservoirs() {
+    return this->reservoirs;
+}
+
+unordered_map<string, Pumping_station> csv_reader::getStations() {
+    return this->stations;
 }

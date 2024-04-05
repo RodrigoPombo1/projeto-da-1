@@ -9,8 +9,8 @@ using namespace std;
 Pumping_station::Pumping_station(int id, string code) {
     this->id = id;
     this->code = code;
-    this->input_pipelines = vector<Pipeline*>();
-    this->output_pipelines = vector<Pipeline*>();
+    this->input_pipelines = vector<string>();
+    this->output_pipelines = vector<string>();
 }
 
 int Pumping_station::getId() {
@@ -21,26 +21,26 @@ string Pumping_station::getCode() {
     return this->code;
 }
 
-void Pumping_station::addInputPipeline(Pipeline *pipeline) {
-    this->input_pipelines.push_back(pipeline);
+void Pumping_station::addInputPipeline(std::string pipeline_code) {
+    this->input_pipelines.push_back(pipeline_code);
 }
 
-void Pumping_station::removeInputPipeline(Pipeline *pipeline) {
+void Pumping_station::removeInputPipeline(std::string pipeline_code) {
     for (int i = 0; i < this->input_pipelines.size(); i++) {
-        if (this->input_pipelines[i] == pipeline) {
+        if (this->input_pipelines[i] == pipeline_code) {
             this->input_pipelines.erase(this->input_pipelines.begin() + i);
             break;
         }
     }
 }
 
-void Pumping_station::addOutputPipeline(Pipeline *pipeline) {
-    this->output_pipelines.push_back(pipeline);
+void Pumping_station::addOutputPipeline(std::string pipeline_code) {
+    this->output_pipelines.push_back(pipeline_code);
 }
 
-void Pumping_station::removeOutputPipeline(Pipeline *pipeline) {
+void Pumping_station::removeOutputPipeline(std::string pipeline_code) {
     for (int i = 0; i < this->output_pipelines.size(); i++) {
-        if (this->output_pipelines[i] == pipeline) {
+        if (this->output_pipelines[i] == pipeline_code) {
             this->output_pipelines.erase(this->output_pipelines.begin() + i);
             break;
         }

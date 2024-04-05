@@ -5,3 +5,11 @@
 #include "request.h"
 
 using namespace std;
+
+request::request() {
+    this->csvReader = csv_reader();
+    this->cities = this->csvReader.getCities();
+    this->reservoirs = this->csvReader.getReservoirs();
+    this->stations = this->csvReader.getStations();
+    this->pipes = this->csvReader.getPipes();
+}

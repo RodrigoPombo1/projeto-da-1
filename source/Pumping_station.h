@@ -16,16 +16,16 @@ class Pumping_station {
 private:
     int id;
     std::string code;
-    std::vector<Pipeline*> input_pipelines;
-    std::vector<Pipeline*> output_pipelines;
+    std::vector<std::string> input_pipelines;
+    std::vector<std::string> output_pipelines;
 public:
     Pumping_station(int id, std::string code);
     int getId();
     std::string getCode();
-    void addInputPipeline(Pipeline *pipeline);
-    void removeInputPipeline(Pipeline *pipeline);
-    void addOutputPipeline(Pipeline *pipeline);
-    void removeOutputPipeline(Pipeline *pipeline);
+    void addInputPipeline(std::string pipeline_code);
+    void removeInputPipeline(std::string pipeline_code);
+    void addOutputPipeline(std::string pipeline_code);
+    void removeOutputPipeline(std::string pipeline_code);
     bool operator==(const Pumping_station &other) const;
 };
 

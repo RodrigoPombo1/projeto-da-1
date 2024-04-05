@@ -18,8 +18,8 @@ private:
     std::string name;
     double demand;
     int population;
-    std::vector<Pipeline*> input_pipelines;
-    std::vector<Pipeline*> output_pipelines;
+    std::vector<std::string> input_pipelines_codes;
+    std::vector<std::string> output_pipelines_codes;
 public:
     City(int id, std::string code, std::string name, double demand, int population);
     int getId();
@@ -27,10 +27,10 @@ public:
     std::string getName();
     double getDemand();
     int getPopulation();
-    void addInputPipeline(Pipeline *pipeline);
-    void removeInputPipeline(Pipeline *pipeline);
-    void addOutputPipeline(Pipeline *pipeline);
-    void removeOutputPipeline(Pipeline *pipeline);
+    void addInputPipeline(std::string pipeline_code);
+    void removeInputPipeline(std::string pipeline_code);
+    void addOutputPipeline(std::string pipeline_code);
+    void removeOutputPipeline(std::string pipeline_code);
     bool operator==(const City &other) const;
 };
 

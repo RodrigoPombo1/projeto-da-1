@@ -33,14 +33,16 @@ class Pipeline {
 private:
     int capacity;
     int flow;
+    std::string code;
     service_point service_point_a;
     service_point service_point_b;
     service_point_type service_point_type_a;
     service_point_type service_point_type_b;
 public:
-    Pipeline(int capacity, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b);
+    Pipeline(int capacity, std::string code, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b);
     int getCapacity();
-    bool getIsUnidirectional();
+    int getFlow();
+    void setFlow(int flow);
     service_point getServicePointA();
     service_point getServicePointB();
     bool operator==(const Pipeline &other) const;

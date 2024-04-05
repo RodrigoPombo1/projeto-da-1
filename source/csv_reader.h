@@ -27,7 +27,7 @@ private:
     std::unordered_map<std::string, City> cities;
     std::unordered_map<std::string, Water_reservoir> reservoirs;
     std::unordered_map<std::string, Pumping_station> stations;
-    std::vector<Pipeline> pipes;
+    std::unordered_map<std::string, Pipeline> pipes;
 public:
     csv_reader();
     std::unordered_map<std::string, City> getCities();
