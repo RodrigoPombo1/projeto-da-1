@@ -6,9 +6,9 @@
 
 using namespace std;
 
-Pipeline::Pipeline(int capacity, bool is_unidirectional, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b) {
+Pipeline::Pipeline(int capacity, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b) {
+    this->flow = 0;
     this->capacity = capacity;
-    this->is_unidirectional = is_unidirectional;
     this->service_point_a = service_point_a;
     this->service_point_b = service_point_b;
     this->service_point_type_a = service_point_type_a;
@@ -17,10 +17,6 @@ Pipeline::Pipeline(int capacity, bool is_unidirectional, service_point service_p
 
 int Pipeline::getCapacity() {
     return this->capacity;
-}
-
-bool Pipeline::getIsUnidirectional() {
-    return this->is_unidirectional;
 }
 
 service_point Pipeline::getServicePointA() {
@@ -32,7 +28,7 @@ service_point Pipeline::getServicePointB() {
 }
 
 bool Pipeline::operator==(const Pipeline &other) const {
-    if (!(this->capacity == other.capacity && this->is_unidirectional == other.is_unidirectional && this->service_point_type_a == other.service_point_type_a && this->service_point_type_b == other.service_point_type_b)) {
+    if (!(this->capacity == other.capacity && this->service_point_type_a == other.service_point_type_a && this->service_point_type_b == other.service_point_type_b)) {
         return false;
     }
     bool check_service_point_a = false;

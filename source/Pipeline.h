@@ -32,13 +32,13 @@ enum service_point_type {
 class Pipeline {
 private:
     int capacity;
-    bool is_unidirectional;
+    int flow;
     service_point service_point_a;
     service_point service_point_b;
     service_point_type service_point_type_a;
     service_point_type service_point_type_b;
 public:
-    Pipeline(int capacity, bool is_unidirectional, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b);
+    Pipeline(int capacity, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b);
     int getCapacity();
     bool getIsUnidirectional();
     service_point getServicePointA();

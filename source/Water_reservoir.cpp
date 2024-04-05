@@ -61,19 +61,6 @@ void Water_reservoir::removeOutputPipeline(Pipeline *pipeline) {
     }
 }
 
-void Water_reservoir::addBidirectionalPipeline(Pipeline *pipeline) {
-    this->bidirectional_pipelines.push_back(pipeline);
-}
-
-void Water_reservoir::removeBidirectionalPipeline(Pipeline *pipeline) {
-    for (int i = 0; i < this->bidirectional_pipelines.size(); i++) {
-        if (this->bidirectional_pipelines[i] == pipeline) {
-            this->bidirectional_pipelines.erase(this->bidirectional_pipelines.begin() + i);
-            break;
-        }
-    }
-}
-
 bool Water_reservoir::operator==(const Water_reservoir &other) const {
     return this->id == other.id;
 }

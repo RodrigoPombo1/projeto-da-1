@@ -47,19 +47,6 @@ void Pumping_station::removeOutputPipeline(Pipeline *pipeline) {
     }
 }
 
-void Pumping_station::addBidirectionalPipeline(Pipeline *pipeline) {
-    this->bidirectional_pipelines.push_back(pipeline);
-}
-
-void Pumping_station::removeBidirectionalPipeline(Pipeline *pipeline) {
-    for (int i = 0; i < this->bidirectional_pipelines.size(); i++) {
-        if (this->bidirectional_pipelines[i] == pipeline) {
-            this->bidirectional_pipelines.erase(this->bidirectional_pipelines.begin() + i);
-            break;
-        }
-    }
-}
-
 bool Pumping_station::operator==(const Pumping_station &other) const {
     return this->id == other.id;
 }

@@ -20,7 +20,6 @@ private:
     int maximum_delivery;
     std::vector<Pipeline*> input_pipelines;
     std::vector<Pipeline*> output_pipelines;
-    std::vector<Pipeline*> bidirectional_pipelines;
 public:
     Water_reservoir(int id, std::string code, std::string name, std::string municipality, int maximum_delivery);
     int getId();
@@ -32,8 +31,6 @@ public:
     void removeInputPipeline(Pipeline *pipeline);
     void addOutputPipeline(Pipeline *pipeline);
     void removeOutputPipeline(Pipeline *pipeline);
-    void addBidirectionalPipeline(Pipeline *pipeline);
-    void removeBidirectionalPipeline(Pipeline *pipeline);
     bool operator==(const Water_reservoir &other) const;
 };
 

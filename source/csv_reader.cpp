@@ -91,29 +91,29 @@ void csv_reader::read_pipes_csv() {
         service_point_type service_point_type_a, service_point_type_b;
         switch (service_point_a_code[0]) {
             case 'C' : {
-                service_point_a_code = CITY;
+                service_point_type_a = CITY;
                 break;
             }
             case 'P' : {
-                service_point_a_code = PUMPING_STATION;
+                service_point_type_a = PUMPING_STATION;
                 break;
             }
             case 'R' : {
-                service_point_a_code = WATER_RESERVOIR;
+                service_point_type_a = WATER_RESERVOIR;
                 break;
             }
         }
         switch (service_point_b_code[0]) {
             case 'C' : {
-                service_point_b_code = CITY;
+                service_point_type_b = CITY;
                 break;
             }
             case 'P' : {
-                service_point_b_code = PUMPING_STATION;
+                service_point_type_b = PUMPING_STATION;
                 break;
             }
             case 'R' : {
-                service_point_b_code = WATER_RESERVOIR;
+                service_point_type_b = WATER_RESERVOIR;
                 break;
             }
         }
@@ -146,9 +146,10 @@ void csv_reader::read_pipes_csv() {
                 break;
             }
         }
-        Pipeline pipe(stoi(capacity), is_unidirectional, service_point_a, service_point_b, service_point_type_a, service_point_type_b);
+        Pipeline pipe(stoi(capacity), service_point_a, service_point_b, service_point_type_a, service_point_type_b);
         this->pipes.push_back(pipe);
         // add the pipe to the service points
+        // case where its unidirectional
         if (is_unidirectional) {
             switch (service_point_type_a) {
                 case CITY : {
@@ -179,32 +180,41 @@ void csv_reader::read_pipes_csv() {
                 }
             }
         }
+        // case where its bidirectional
         else {
+            Pipeline reverse_pipe = Pipeline(stoi(capacity), service_point_b, service_point_a, service_point_type_b, service_point_type_a);
+            this->pipes.push_back(reverse_pipe);
             switch (service_point_type_a) {
                 case CITY : {
-                    this->cities.at(service_point_a_code).addBidirectionalPipeline(&this->pipes.back());
+                    this->cities.at(service_point_a_code).addOutputPipeline(&this->pipes.back()-1);
+                    this->cities.at(service_point_a_code).addInputPipeline(&this->pipes.back());
                     break;
                 }
                 case PUMPING_STATION : {
-                    this->stations.at(service_point_a_code).addBidirectionalPipeline(&this->pipes.back());
+                    this->stations.at(service_point_a_code).addOutputPipeline(&this->pipes.back()-1);
+                    this->stations.at(service_point_a_code).addInputPipeline(&this->pipes.back());
                     break;
                 }
                 case WATER_RESERVOIR : {
-                    this->reservoirs.at(service_point_a_code).addBidirectionalPipeline(&this->pipes.back());
+                    this->reservoirs.at(service_point_a_code).addOutputPipeline(&this->pipes.back()-1);
+                    this->reservoirs.at(service_point_a_code).addInputPipeline(&this->pipes.back());
                     break;
                 }
             }
             switch (service_point_type_b) {
                 case CITY : {
-                    this->cities.at(service_point_b_code).addBidirectionalPipeline(&this->pipes.back());
+                    this->cities.at(service_point_b_code).addOutputPipeline(&this->pipes.back()-1);
+                    this->cities.at(service_point_b_code).addInputPipeline(&this->pipes.back());
                     break;
                 }
                 case PUMPING_STATION : {
-                    this->stations.at(service_point_b_code).addBidirectionalPipeline(&this->pipes.back());
+                    this->stations.at(service_point_b_code).addOutputPipeline(&this->pipes.back()-1);
+                    this->stations.at(service_point_b_code).addInputPipeline(&this->pipes.back());
                     break;
                 }
                 case WATER_RESERVOIR : {
-                    this->reservoirs.at(service_point_b_code).addBidirectionalPipeline(&this->pipes.back());
+                    this->reservoirs.at(service_point_b_code).addOutputPipeline(&this->pipes.back()-1);
+                    this->reservoirs.at(service_point_b_code).addInputPipeline(&this->pipes.back());
                     break;
                 }
             }

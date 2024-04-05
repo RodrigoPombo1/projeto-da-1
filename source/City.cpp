@@ -61,19 +61,6 @@ void City::removeOutputPipeline(Pipeline *pipeline) {
     }
 }
 
-void City::addBidirectionalPipeline(Pipeline *pipeline) {
-    this->bidirectional_pipelines.push_back(pipeline);
-}
-
-void City::removeBidirectionalPipeline(Pipeline *pipeline) {
-    for (int i = 0; i < this->bidirectional_pipelines.size(); i++) {
-        if (this->bidirectional_pipelines[i] == pipeline) {
-            this->bidirectional_pipelines.erase(this->bidirectional_pipelines.begin() + i);
-            break;
-        }
-    }
-}
-
 bool City::operator==(const City &other) const {
     return this->id == other.id;
 }
