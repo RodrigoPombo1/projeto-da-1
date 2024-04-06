@@ -18,6 +18,10 @@ add_executable(projeto_da_1 main.cpp
         source/City.h
         source/Pipeline.cpp
         source/Pipeline.h
+        source/Supersource.cpp
+        source/Supersource.h
+        source/Supersink.cpp
+        source/Supersink.h
 )
 
 include_directories(source)

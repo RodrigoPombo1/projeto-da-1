@@ -16,12 +16,18 @@ class Pumping_station {
 private:
     int id;
     std::string code;
+    bool active;
+    bool visited;
     std::vector<std::string> input_pipelines;
     std::vector<std::string> output_pipelines;
 public:
     Pumping_station(int id, std::string code);
     int getId();
     std::string getCode();
+    bool isActive();
+    void setActive(bool active);
+    bool hasBeenVisited();
+    void setVisited(bool visited);
     void addInputPipeline(std::string pipeline_code);
     void removeInputPipeline(std::string pipeline_code);
     void addOutputPipeline(std::string pipeline_code);

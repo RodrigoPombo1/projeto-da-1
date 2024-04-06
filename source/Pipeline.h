@@ -31,18 +31,24 @@ enum service_point_type {
 
 class Pipeline {
 private:
-    int capacity;
-    int flow;
+    double capacity;
+    double residual_capacity;
+    double flow;
+    bool active;
     std::string code;
     service_point service_point_a;
     service_point service_point_b;
     service_point_type service_point_type_a;
     service_point_type service_point_type_b;
 public:
-    Pipeline(int capacity, std::string code, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b);
-    int getCapacity();
-    int getFlow();
-    void setFlow(int flow);
+    Pipeline(double capacity, std::string code, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b);
+    std::string getCode();
+    double getCapacity();
+    bool isActive();
+    void setActive(bool active);
+    double getFlow();
+    void setFlow(double flow);
+    double getResidualCapacity();
     service_point getServicePointA();
     service_point getServicePointB();
     bool operator==(const Pipeline &other) const;

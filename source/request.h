@@ -6,6 +6,8 @@
 #define PROJETO_DA_1_REQUEST_H
 
 #include "csv_reader.h"
+#include "Supersink.h"
+#include "Supersource.h"
 
 class request {
 private:

@@ -6,26 +6,45 @@
 
 using namespace std;
 
-Pipeline::Pipeline(int capacity, string code, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b) {
+Pipeline::Pipeline(double capacity, string code, service_point service_point_a, service_point service_point_b, service_point_type service_point_type_a, service_point_type service_point_type_b) {
     this->flow = 0;
     this->code = code;
     this->capacity = capacity;
+    this->active = true;
     this->service_point_a = service_point_a;
     this->service_point_b = service_point_b;
     this->service_point_type_a = service_point_type_a;
     this->service_point_type_b = service_point_type_b;
+    this->residual_capacity = capacity - this->flow;
 }
 
-int Pipeline::getCapacity() {
+string Pipeline::getCode() {
+    return this->code;
+}
+
+double Pipeline::getCapacity() {
     return this->capacity;
 }
 
-int Pipeline::getFlow() {
+bool Pipeline::isActive() {
+    return this->active;
+}
+
+void Pipeline::setActive(bool active) {
+    this->active = active;
+}
+
+double Pipeline::getFlow() {
     return this->flow;
 }
 
-void Pipeline::setFlow(int flow) {
+void Pipeline::setFlow(double flow) {
     this->flow = flow;
+    this->residual_capacity = this->capacity - flow;
+}
+
+double Pipeline::getResidualCapacity() {
+    return this->residual_capacity;
 }
 
 service_point Pipeline::getServicePointA() {

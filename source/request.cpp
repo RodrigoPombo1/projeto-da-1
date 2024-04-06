@@ -13,3 +13,6 @@ request::request() {
     this->stations = this->csvReader.getStations();
     this->pipes = this->csvReader.getPipes();
 }
+
+// o algoritmo no fundo so vai ter o supersink o supersource as pipelines e as pumping stations
+// tudo o q e interagir com cidades e reservatorios vai estar dentro do supersink e do supersource

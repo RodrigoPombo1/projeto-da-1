@@ -188,6 +188,36 @@ CMakeFiles/projeto_da_1.dir/source/Pipeline.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/projeto_da_1.dir/source/Pipeline.cpp.s"
 	"C:\PROGRA~1\JetBrains\CLion 2023.2.2\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Pipeline.cpp -o CMakeFiles\projeto_da_1.dir\source\Pipeline.cpp.s
 
+CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj: CMakeFiles/projeto_da_1.dir/flags.make
+CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj: CMakeFiles/projeto_da_1.dir/includes_CXX.rsp
+CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj: C:/Users/rodri/Documents/GitHub/projeto-da-1/source/Supersource.cpp
+CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj: CMakeFiles/projeto_da_1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\rodri\Documents\GitHub\projeto-da-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj"
+	"C:\PROGRA~1\JetBrains\CLion 2023.2.2\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj -MF CMakeFiles\projeto_da_1.dir\source\Supersource.cpp.obj.d -o CMakeFiles\projeto_da_1.dir\source\Supersource.cpp.obj -c C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Supersource.cpp
+
+CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.i"
+	"C:\PROGRA~1\JetBrains\CLion 2023.2.2\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Supersource.cpp > CMakeFiles\projeto_da_1.dir\source\Supersource.cpp.i
+
+CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.s"
+	"C:\PROGRA~1\JetBrains\CLion 2023.2.2\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Supersource.cpp -o CMakeFiles\projeto_da_1.dir\source\Supersource.cpp.s
+
+CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj: CMakeFiles/projeto_da_1.dir/flags.make
+CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj: CMakeFiles/projeto_da_1.dir/includes_CXX.rsp
+CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj: C:/Users/rodri/Documents/GitHub/projeto-da-1/source/Supersink.cpp
+CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj: CMakeFiles/projeto_da_1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\rodri\Documents\GitHub\projeto-da-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj"
+	"C:\PROGRA~1\JetBrains\CLion 2023.2.2\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj -MF CMakeFiles\projeto_da_1.dir\source\Supersink.cpp.obj.d -o CMakeFiles\projeto_da_1.dir\source\Supersink.cpp.obj -c C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Supersink.cpp
+
+CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.i"
+	"C:\PROGRA~1\JetBrains\CLion 2023.2.2\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Supersink.cpp > CMakeFiles\projeto_da_1.dir\source\Supersink.cpp.i
+
+CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.s"
+	"C:\PROGRA~1\JetBrains\CLion 2023.2.2\bin\mingw\bin\g++.exe" $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Supersink.cpp -o CMakeFiles\projeto_da_1.dir\source\Supersink.cpp.s
+
 # Object files for target projeto_da_1
 projeto_da_1_OBJECTS = \
 "CMakeFiles/projeto_da_1.dir/main.cpp.obj" \
@@ -197,7 +227,9 @@ projeto_da_1_OBJECTS = \
 "CMakeFiles/projeto_da_1.dir/source/Water_reservoir.cpp.obj" \
 "CMakeFiles/projeto_da_1.dir/source/Pumping_station.cpp.obj" \
 "CMakeFiles/projeto_da_1.dir/source/City.cpp.obj" \
-"CMakeFiles/projeto_da_1.dir/source/Pipeline.cpp.obj"
+"CMakeFiles/projeto_da_1.dir/source/Pipeline.cpp.obj" \
+"CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj" \
+"CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj"
 
 # External object files for target projeto_da_1
 projeto_da_1_EXTERNAL_OBJECTS =
@@ -210,11 +242,13 @@ projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/source/Water_reservoir.cpp.obj
 projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/source/Pumping_station.cpp.obj
 projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/source/City.cpp.obj
 projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/source/Pipeline.cpp.obj
+projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj
+projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj
 projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/build.make
 projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/linkLibs.rsp
 projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/objects1.rsp
 projeto_da_1.exe: CMakeFiles/projeto_da_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\rodri\Documents\GitHub\projeto-da-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable projeto_da_1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\rodri\Documents\GitHub\projeto-da-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable projeto_da_1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\projeto_da_1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

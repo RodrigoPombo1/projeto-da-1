@@ -17,20 +17,29 @@ private:
     std::string code;
     std::string name;
     std::string municipality;
-    int maximum_delivery;
-    std::vector<std::string> input_pipelines;
+    double maximum_delivery;
+    double output_flow;
+    bool active;
+    bool visited;
     std::vector<std::string> output_pipelines;
 public:
-    Water_reservoir(int id, std::string code, std::string name, std::string municipality, int maximum_delivery);
+    Water_reservoir(int id, std::string code, std::string name, std::string municipality, double maximum_delivery);
     int getId();
     std::string getCode();
     std::string getName();
     std::string getMunicipality();
-    int getMaximumDelivery();
-    void addInputPipeline(std::string pipeline_code);
-    void removeInputPipeline(std::string pipeline_code);
+    double getMaximumDelivery();
+    bool isActive();
+    void setActive(bool active);
+    bool hasBeenVisited();
+    void setVisited(bool visited);
+    void setOutputFlow(double flow);
+    double getOutputFlow();
+    void addOutputFlow(double flow);
+    void removeOutputFlow(double flow);
     void addOutputPipeline(std::string pipeline_code);
     void removeOutputPipeline(std::string pipeline_code);
+    std::vector<std::string> getOutputPipelinesCodes();
     bool operator==(const Water_reservoir &other) const;
 };
 

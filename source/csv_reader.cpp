@@ -153,10 +153,6 @@ void csv_reader::read_pipes_csv() {
         // case where its unidirectional
         if (is_unidirectional) {
             switch (service_point_type_a) {
-                case CITY : {
-                    this->cities.at(service_point_a_code).addOutputPipeline(pipe_code);
-                    break;
-                }
                 case PUMPING_STATION : {
                     this->stations.at(service_point_a_code).addOutputPipeline(pipe_code);
                     break;
@@ -173,10 +169,6 @@ void csv_reader::read_pipes_csv() {
                 }
                 case PUMPING_STATION : {
                     this->stations.at(service_point_b_code).addInputPipeline(pipe_code);
-                    break;
-                }
-                case WATER_RESERVOIR : {
-                    this->reservoirs.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
             }
@@ -188,7 +180,6 @@ void csv_reader::read_pipes_csv() {
             this->pipes.insert({reverse_pipe_code, reverse_pipe});
             switch (service_point_type_a) {
                 case CITY : {
-                    this->cities.at(service_point_a_code).addOutputPipeline(pipe_code);
                     this->cities.at(service_point_a_code).addInputPipeline(reverse_pipe_code);
                     break;
                 }
@@ -199,13 +190,11 @@ void csv_reader::read_pipes_csv() {
                 }
                 case WATER_RESERVOIR : {
                     this->reservoirs.at(service_point_a_code).addOutputPipeline(pipe_code);
-                    this->reservoirs.at(service_point_a_code).addInputPipeline(reverse_pipe_code);
                     break;
                 }
             }
             switch (service_point_type_b) {
                 case CITY : {
-                    this->cities.at(service_point_b_code).addOutputPipeline(reverse_pipe_code);
                     this->cities.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
@@ -216,7 +205,6 @@ void csv_reader::read_pipes_csv() {
                 }
                 case WATER_RESERVOIR : {
                     this->reservoirs.at(service_point_b_code).addOutputPipeline(reverse_pipe_code);
-                    this->reservoirs.at(service_point_b_code).addInputPipeline(pipe_code);
                     break;
                 }
             }

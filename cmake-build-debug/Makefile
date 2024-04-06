@@ -224,6 +224,54 @@ source/Pumping_station.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Pumping_station.cpp.s
 .PHONY : source/Pumping_station.cpp.s
 
+source/Supersink.obj: source/Supersink.cpp.obj
+.PHONY : source/Supersink.obj
+
+# target to build an object file
+source/Supersink.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.obj
+.PHONY : source/Supersink.cpp.obj
+
+source/Supersink.i: source/Supersink.cpp.i
+.PHONY : source/Supersink.i
+
+# target to preprocess a source file
+source/Supersink.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.i
+.PHONY : source/Supersink.cpp.i
+
+source/Supersink.s: source/Supersink.cpp.s
+.PHONY : source/Supersink.s
+
+# target to generate assembly for a file
+source/Supersink.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Supersink.cpp.s
+.PHONY : source/Supersink.cpp.s
+
+source/Supersource.obj: source/Supersource.cpp.obj
+.PHONY : source/Supersource.obj
+
+# target to build an object file
+source/Supersource.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.obj
+.PHONY : source/Supersource.cpp.obj
+
+source/Supersource.i: source/Supersource.cpp.i
+.PHONY : source/Supersource.i
+
+# target to preprocess a source file
+source/Supersource.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.i
+.PHONY : source/Supersource.cpp.i
+
+source/Supersource.s: source/Supersource.cpp.s
+.PHONY : source/Supersource.s
+
+# target to generate assembly for a file
+source/Supersource.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Supersource.cpp.s
+.PHONY : source/Supersource.cpp.s
+
 source/Water_reservoir.obj: source/Water_reservoir.cpp.obj
 .PHONY : source/Water_reservoir.obj
 
@@ -341,6 +389,12 @@ help:
 	@echo ... source/Pumping_station.obj
 	@echo ... source/Pumping_station.i
 	@echo ... source/Pumping_station.s
+	@echo ... source/Supersink.obj
+	@echo ... source/Supersink.i
+	@echo ... source/Supersink.s
+	@echo ... source/Supersource.obj
+	@echo ... source/Supersource.i
+	@echo ... source/Supersource.s
 	@echo ... source/Water_reservoir.obj
 	@echo ... source/Water_reservoir.i
 	@echo ... source/Water_reservoir.s

@@ -17,9 +17,11 @@ private:
     std::string code;
     std::string name;
     double demand;
+    double receiving_flow;
     int population;
+    bool active;
+    bool visited;
     std::vector<std::string> input_pipelines_codes;
-    std::vector<std::string> output_pipelines_codes;
 public:
     City(int id, std::string code, std::string name, double demand, int population);
     int getId();
@@ -27,10 +29,16 @@ public:
     std::string getName();
     double getDemand();
     int getPopulation();
+    double getReceivingFlow();
+    void setReceivingFlow(double flow);
+    void addReceivingFlow(double flow);
+    void removeReceivingFlow(double flow);
+    bool isActive();
+    void setActive(bool active);
+    bool hasBeenVisited();
+    void setVisited(bool visited);
     void addInputPipeline(std::string pipeline_code);
-    void removeInputPipeline(std::string pipeline_code);
-    void addOutputPipeline(std::string pipeline_code);
-    void removeOutputPipeline(std::string pipeline_code);
+    std::vector<std::string> getInputPipelinesCodes();
     bool operator==(const City &other) const;
 };
 

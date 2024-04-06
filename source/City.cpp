@@ -11,8 +11,10 @@ City::City(int id, string code, string name, double demand, int population) {
     this->name = name;
     this->demand = demand;
     this->population = population;
+    this->active = true;
+    this->visited = false;
+    this->receiving_flow = 0;
     this->input_pipelines_codes = vector<std::string>();
-    this->output_pipelines_codes = vector<std::string>();
 }
 
 int City::getId() {
@@ -35,30 +37,44 @@ int City::getPopulation() {
     return this->population;
 }
 
+double City::getReceivingFlow() {
+    return this->receiving_flow;
+}
+
+void City::setReceivingFlow(double flow) {
+    this->receiving_flow = flow;
+}
+
+void City::addReceivingFlow(double flow) {
+    this->receiving_flow += flow;
+}
+
+void City::removeReceivingFlow(double flow) {
+    this->receiving_flow -= flow;
+}
+
+bool City::isActive() {
+    return this->active;
+}
+
+void City::setActive(bool active) {
+    this->active = active;
+}
+
+bool City::hasBeenVisited() {
+    return this->visited;
+}
+
+void City::setVisited(bool visited) {
+    this->visited = visited;
+}
+
 void City::addInputPipeline(string pipeline_code) {
     this->input_pipelines_codes.push_back(pipeline_code);
 }
 
-void City::removeInputPipeline(string pipeline_code) {
-    for (int i = 0; i < this->input_pipelines_codes.size(); i++) {
-        if (this->input_pipelines_codes[i] == pipeline_code) {
-            this->input_pipelines_codes.erase(this->input_pipelines_codes.begin() + i);
-            break;
-        }
-    }
-}
-
-void City::addOutputPipeline(string pipeline_code) {
-    this->output_pipelines_codes.push_back(pipeline_code);
-}
-
-void City::removeOutputPipeline(string pipeline_code) {
-    for (int i = 0; i < this->output_pipelines_codes.size(); i++) {
-        if (this->output_pipelines_codes[i] == pipeline_code) {
-            this->output_pipelines_codes.erase(this->output_pipelines_codes.begin() + i);
-            break;
-        }
-    }
+std::vector<std::string> City::getInputPipelinesCodes() {
+    return this->input_pipelines_codes;
 }
 
 bool City::operator==(const City &other) const {
