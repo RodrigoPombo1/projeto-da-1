@@ -16,6 +16,7 @@ Pipeline::Pipeline(double capacity, string code, service_point service_point_a, 
     this->service_point_type_a = service_point_type_a;
     this->service_point_type_b = service_point_type_b;
     this->residual_capacity = capacity - this->flow;
+    this->reverse_edge_pointer = nullptr;
 }
 
 string Pipeline::getCode() {
@@ -76,4 +77,16 @@ bool Pipeline::operator==(const Pipeline &other) const {
         check_service_point_b = this->service_point_b.city == other.service_point_b.city;
     }
     return check_service_point_a && check_service_point_b;
+}
+
+service_point_type Pipeline::getServicePointTypeA() {
+    return this->service_point_type_a;
+}
+
+service_point_type Pipeline::getServicePointTypeB() {
+    return this->service_point_type_b;
+}
+
+ReverseEdge* Pipeline::getReverseEdgePointer() {
+    return this->reverse_edge_pointer;
 }

@@ -165,4 +165,5 @@ CMakeFiles/projeto_da_1.dir/source/csv_reader.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/vector.tcc \
  C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Pipeline.h \
  C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Pumping_station.h \
- C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Water_reservoir.h
+ C:\Users\rodri\Documents\GitHub\projeto-da-1\source\Water_reservoir.h \
+ C:\Users\rodri\Documents\GitHub\projeto-da-1\source\ReverseEdge.h

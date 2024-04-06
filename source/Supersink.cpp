@@ -10,8 +10,11 @@ Supersink::Supersink(std::unordered_map<std::string, City> *cities, std::unorder
     this->demand = 0;
     this->flow = 0;
     for (auto &city : *cities) {
-        for (auto &pipeline : city.second.getInputPipelinesCodes()) {
-            this->super_sink_input_pipelines_codes_map_to_pointer.insert({pipeline, &pipelines->at(pipeline)});
+        if (city.second.isActive()) {
+            this->demand += city.second.getDemand();
+            for (auto &pipeline: city.second.getInputPipelinesCodes()) {
+                this->super_sink_input_pipelines_codes_map_to_pointer.insert({pipeline, &pipelines->at(pipeline)});
+            }
         }
     }
     this->cities_pointer = cities;

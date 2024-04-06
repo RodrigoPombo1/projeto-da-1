@@ -65,6 +65,14 @@ void Pumping_station::removeOutputPipeline(std::string pipeline_code) {
     }
 }
 
+vector<string> Pumping_station::getInputPipelinesCodes() {
+    return this->input_pipelines;
+}
+
+vector<string> Pumping_station::getOutputPipelinesCodes() {
+    return this->output_pipelines;
+}
+
 bool Pumping_station::operator==(const Pumping_station &other) const {
     return this->id == other.id;
 }

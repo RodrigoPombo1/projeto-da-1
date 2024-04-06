@@ -32,6 +32,8 @@ public:
     void removeInputPipeline(std::string pipeline_code);
     void addOutputPipeline(std::string pipeline_code);
     void removeOutputPipeline(std::string pipeline_code);
+    std::vector<std::string> getInputPipelinesCodes();
+    std::vector<std::string> getOutputPipelinesCodes();
     bool operator==(const Pumping_station &other) const;
 };
 

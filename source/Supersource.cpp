@@ -9,8 +9,11 @@ Supersource::Supersource(std::unordered_map<std::string, Water_reservoir> *water
     this->flow = 0;
     this->water_reservoirs_pointer = water_reservoirs;
     for (auto &water_reservoir : *water_reservoirs) {
-        for (auto &pipeline : water_reservoir.second.getOutputPipelinesCodes()) {
-            this->super_source_output_pipelines_codes_map_to_pointer.insert({pipeline, &pipelines->at(pipeline)});
+        if (water_reservoir.second.isActive()) {
+            this->maximum_delivery += water_reservoir.second.getMaximumDelivery();
+            for (auto &pipeline: water_reservoir.second.getOutputPipelinesCodes()) {
+                this->super_source_output_pipelines_codes_map_to_pointer.insert({pipeline, &pipelines->at(pipeline)});
+            }
         }
     }
 }

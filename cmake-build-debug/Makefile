@@ -224,6 +224,30 @@ source/Pumping_station.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/Pumping_station.cpp.s
 .PHONY : source/Pumping_station.cpp.s
 
+source/ReverseEdge.obj: source/ReverseEdge.cpp.obj
+.PHONY : source/ReverseEdge.obj
+
+# target to build an object file
+source/ReverseEdge.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/ReverseEdge.cpp.obj
+.PHONY : source/ReverseEdge.cpp.obj
+
+source/ReverseEdge.i: source/ReverseEdge.cpp.i
+.PHONY : source/ReverseEdge.i
+
+# target to preprocess a source file
+source/ReverseEdge.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/ReverseEdge.cpp.i
+.PHONY : source/ReverseEdge.cpp.i
+
+source/ReverseEdge.s: source/ReverseEdge.cpp.s
+.PHONY : source/ReverseEdge.s
+
+# target to generate assembly for a file
+source/ReverseEdge.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\projeto_da_1.dir\build.make CMakeFiles/projeto_da_1.dir/source/ReverseEdge.cpp.s
+.PHONY : source/ReverseEdge.cpp.s
+
 source/Supersink.obj: source/Supersink.cpp.obj
 .PHONY : source/Supersink.obj
 
@@ -389,6 +413,9 @@ help:
 	@echo ... source/Pumping_station.obj
 	@echo ... source/Pumping_station.i
 	@echo ... source/Pumping_station.s
+	@echo ... source/ReverseEdge.obj
+	@echo ... source/ReverseEdge.i
+	@echo ... source/ReverseEdge.s
 	@echo ... source/Supersink.obj
 	@echo ... source/Supersink.i
 	@echo ... source/Supersink.s

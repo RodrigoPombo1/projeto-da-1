@@ -10,12 +10,14 @@
 #include "Pumping_station.h"
 #include "Water_reservoir.h"
 #include "City.h"
+#include "ReverseEdge.h"
 #include <string>
 #include <vector>
 
 class City;
 class Water_reservoir;
 class Pumping_station;
+class ReverseEdge;
 
 union service_point {
     Pumping_station *pumping_station;
@@ -35,6 +37,7 @@ private:
     double residual_capacity;
     double flow;
     bool active;
+    ReverseEdge* reverse_edge_pointer;
     std::string code;
     service_point service_point_a;
     service_point service_point_b;
@@ -51,6 +54,9 @@ public:
     double getResidualCapacity();
     service_point getServicePointA();
     service_point getServicePointB();
+    service_point_type getServicePointTypeA();
+    service_point_type getServicePointTypeB();
+    ReverseEdge* getReverseEdgePointer();
     bool operator==(const Pipeline &other) const;
 };
 

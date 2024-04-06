@@ -105,6 +105,12 @@
 		<Unit filename="C:/Users/rodri/Documents/GitHub/projeto-da-1/source/Pumping_station.h">
 			<Option target="projeto_da_1"/>
 		</Unit>
+		<Unit filename="C:/Users/rodri/Documents/GitHub/projeto-da-1/source/ReverseEdge.cpp">
+			<Option target="projeto_da_1"/>
+		</Unit>
+		<Unit filename="C:/Users/rodri/Documents/GitHub/projeto-da-1/source/ReverseEdge.h">
+			<Option target="projeto_da_1"/>
+		</Unit>
 		<Unit filename="C:/Users/rodri/Documents/GitHub/projeto-da-1/source/Supersink.cpp">
 			<Option target="projeto_da_1"/>
 		</Unit>

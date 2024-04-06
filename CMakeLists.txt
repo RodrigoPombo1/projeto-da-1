@@ -22,6 +22,8 @@ add_executable(projeto_da_1 main.cpp
         source/Supersource.h
         source/Supersink.cpp
         source/Supersink.h
+        source/ReverseEdge.cpp
+        source/ReverseEdge.h
 )
 
 include_directories(source)

@@ -8,14 +8,21 @@
 #include "csv_reader.h"
 #include "Supersink.h"
 #include "Supersource.h"
+#include "ReverseEdge.h"
+#include <queue>
+#include <unordered_set>
+#include <limits>
 
 class request {
 private:
     csv_reader csvReader;
     std::unordered_map<std::string, City> cities;
-    std::unordered_map<std::string, Water_reservoir> reservoirs;
+    std::unordered_map<std::string, Water_reservoir> water_reservoirs;
     std::unordered_map<std::string, Pumping_station> stations;
     std::unordered_map<std::string, Pipeline> pipes;
+
+    // methods
+    double EdmondsKarp();
 public:
     request();
 };
