@@ -41,3 +41,21 @@ void Supersource::addFlowToSuperSourceOutputOfSpecificReservoir(std::string rese
 void Supersource::removeFlowFromSuperSourceOutputOfSpecificReservoir(std::string reservoir_code, double flow) {
     this->water_reservoirs_pointer->at(reservoir_code).removeOutputFlow(flow);
 }
+
+bool Supersource::hasReservoir(std::string reservoir_code) {
+    return this->water_reservoirs_pointer->find(reservoir_code) != this->water_reservoirs_pointer->end();
+}
+
+std::vector<std::string> Supersource::getReservoirsCodes() {
+    std::vector<std::string> reservoirs_codes;
+    for (auto &reservoir : *this->water_reservoirs_pointer) {
+        if (reservoir.second.isActive()) {
+            reservoirs_codes.push_back(reservoir.first);
+        }
+    }
+    return reservoirs_codes;
+}
+
+bool Supersource::hasOutputEdge(std::string pipeline_code) {
+    return this->super_source_output_pipelines_codes_map_to_pointer.find(pipeline_code) != this->super_source_output_pipelines_codes_map_to_pointer.end();
+}

@@ -90,3 +90,14 @@ service_point_type Pipeline::getServicePointTypeB() {
 ReverseEdge* Pipeline::getReverseEdgePointer() {
     return this->reverse_edge_pointer;
 }
+
+bool operator==(const service_point &a, const service_point &b) {
+    if (a.pumping_station != nullptr && b.pumping_station != nullptr) {
+        return a.pumping_station == b.pumping_station;
+    } else if (a.water_reservoir != nullptr && b.water_reservoir != nullptr) {
+        return a.water_reservoir == b.water_reservoir;
+    } else if (a.city != nullptr && b.city != nullptr) {
+        return a.city == b.city;
+    }
+    return false;
+}

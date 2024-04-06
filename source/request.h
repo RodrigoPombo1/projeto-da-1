@@ -23,6 +23,11 @@ private:
 
     // methods
     double EdmondsKarp();
+    void setCityInactive(std::string city_code);
+    void setWaterReservoirInactive(std::string water_reservoir_code);
+    void setPumpingStationInactive(std::string pumping_station_code);
+    void setPipelineInactive(std::string pipeline_code);
+    void setAllActive();
 public:
     request();
 };

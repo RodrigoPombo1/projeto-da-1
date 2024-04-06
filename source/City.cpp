@@ -12,7 +12,6 @@ City::City(int id, string code, string name, double demand, int population) {
     this->demand = demand;
     this->population = population;
     this->active = true;
-    this->visited = false;
     this->receiving_flow = 0;
     this->input_pipelines_codes = vector<std::string>();
 }
@@ -61,20 +60,20 @@ void City::setActive(bool active) {
     this->active = active;
 }
 
-bool City::hasBeenVisited() {
-    return this->visited;
-}
-
-void City::setVisited(bool visited) {
-    this->visited = visited;
-}
-
 void City::addInputPipeline(string pipeline_code) {
     this->input_pipelines_codes.push_back(pipeline_code);
 }
 
 std::vector<std::string> City::getInputPipelinesCodes() {
     return this->input_pipelines_codes;
+}
+
+bool City::hasBeenVisited() {
+    return this->visited;
+}
+
+void City::setVisited(bool visited) {
+    this->visited = visited;
 }
 
 bool City::operator==(const City &other) const {

@@ -31,6 +31,9 @@ enum service_point_type {
     CITY
 };
 
+// == for service_point
+bool operator==(const service_point &a, const service_point &b);
+
 class Pipeline {
 private:
     double capacity;

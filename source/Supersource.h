@@ -23,6 +23,9 @@ public:
     void setFlowToSupersource(double flow);
     void addFlowToSuperSourceOutputOfSpecificReservoir(std::string reservoir_code, double flow);
     void removeFlowFromSuperSourceOutputOfSpecificReservoir(std::string reservoir_code, double flow);
+    bool hasReservoir(std::string reservoir_code);
+    std::vector<std::string> getReservoirsCodes();
+    bool hasOutputEdge(std::string pipeline_code);
 };
 
 

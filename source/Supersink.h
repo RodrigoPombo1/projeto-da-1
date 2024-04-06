@@ -23,6 +23,9 @@ public:
     void setFlowToSupersink(double flow);
     void addFlowToSuperSinkInputOfSpecificCity(std::string city_code, double flow);
     void removeFlowFromSuperSinkInputOfSpecificCity(std::string city_code, double flow);
+    bool hasCity(std::string city_code);
+    std::vector<std::string> getCitiesCodes();
+    bool hasInputEdge(std::string pipeline_code);
 };
 
 

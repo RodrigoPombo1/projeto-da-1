@@ -12,7 +12,6 @@ Pumping_station::Pumping_station(int id, string code) {
     this->input_pipelines = vector<string>();
     this->output_pipelines = vector<string>();
     this->active = true;
-    this->visited = false;
 }
 
 int Pumping_station::getId() {
@@ -29,14 +28,6 @@ bool Pumping_station::isActive() {
 
 void Pumping_station::setActive(bool active) {
     this->active = active;
-}
-
-bool Pumping_station::hasBeenVisited() {
-    return this->visited;
-}
-
-void Pumping_station::setVisited(bool visited) {
-    this->visited = visited;
 }
 
 void Pumping_station::addInputPipeline(std::string pipeline_code) {
@@ -71,6 +62,14 @@ vector<string> Pumping_station::getInputPipelinesCodes() {
 
 vector<string> Pumping_station::getOutputPipelinesCodes() {
     return this->output_pipelines;
+}
+
+bool Pumping_station::hasBeenVisited() {
+    return this->visited;
+}
+
+void Pumping_station::setVisited(bool visited) {
+    this->visited = visited;
 }
 
 bool Pumping_station::operator==(const Pumping_station &other) const {

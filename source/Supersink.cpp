@@ -43,3 +43,21 @@ void Supersink::addFlowToSuperSinkInputOfSpecificCity(std::string city_code, dou
 void Supersink::removeFlowFromSuperSinkInputOfSpecificCity(std::string city_code, double flow) {
     this->cities_pointer->at(city_code).removeReceivingFlow(flow);
 }
+
+bool Supersink::hasCity(std::string city_code) {
+    return this->cities_pointer->find(city_code) != this->cities_pointer->end();
+}
+
+std::vector<std::string> Supersink::getCitiesCodes() {
+    std::vector<std::string> cities_codes;
+    for (auto &city : *this->cities_pointer) {
+        if (city.second.isActive()) {
+            cities_codes.push_back(city.first);
+        }
+    }
+    return cities_codes;
+}
+
+bool Supersink::hasInputEdge(std::string pipeline_code) {
+    return this->super_sink_input_pipelines_codes_map_to_pointer.find(pipeline_code) != this->super_sink_input_pipelines_codes_map_to_pointer.end();
+}
