@@ -14,10 +14,10 @@ csv_reader::csv_reader() {
 //    this->stations_csv_file_name = "Stations_Madeira.csv";
 
     // for the large dataset
-    this->cities_csv_file_name = "Cities.csv";
-    this->pipes_csv_file_name = "Pipes.csv";
-    this->reservoir_csv_file_name = "Reservoirs.csv";
-    this->stations_csv_file_name = "Stations.csv";
+    this->cities_csv_file_name = "data/Cities.csv";
+    this->pipes_csv_file_name = "data/Pipes.csv";
+    this->reservoir_csv_file_name = "data/Reservoir.csv"; // é mesmo sem o s
+    this->stations_csv_file_name = "data/Stations.csv";
 
     read_cities_csv();
     read_reservoir_csv();

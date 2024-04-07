@@ -2,6 +2,7 @@
 // Created by rodri on 03/04/2024.
 //
 
+#include <iostream>
 #include "request.h"
 
 using namespace std;
@@ -12,6 +13,9 @@ request::request() {
     this->water_reservoirs = this->csvReader.getReservoirs();
     this->stations = this->csvReader.getStations();
     this->pipes = this->csvReader.getPipes();
+
+    // for test TODO: remove
+    cout << EdmondsKarp() << "\n";
 }
 
 // o algoritmo no fundo so vai ter o supersink o supersource as pipelines e as pumping stations
@@ -35,19 +39,21 @@ double request::EdmondsKarp() {
     while (true) {
         // criar queue para o bfs
         queue<string> q;
-        for (auto &water_reservoir : supersource.getReservoirsCodes()) {
-            q.push(water_reservoir);
+        unordered_map<string, Pipeline*> output_pipe_codes_from_supersource = supersource.getSuperSourceOutputPipelinesCodesMapToPointers();
+        vector<string> predecessor;
+        for (auto &iterator : output_pipe_codes_from_supersource) {
+            q.push(iterator.first);
+            predecessor.push_back(iterator.first); // acho q é preciso fazer isto TODO: confirmar
         }
         // criar um estrutura para guardar os predecessores
-        vector<string> predecessor;
-        bool predecessor_has_sink = false;
-        while (!q.empty() && !predecessor_has_sink) {
-            string current_code = q.front();
+        bool predecessor_has_edge_to_sink = false;
+        while (!q.empty() && !predecessor_has_edge_to_sink) {
+            string current_pipe_code = q.front();
             q.pop();
 
             // get the edges to iterate through
             std::vector<std::string> output_pipes;
-            auto iterator = stations.find(current_code);
+            auto iterator = stations.find(this->pipes.at(current_pipe_code).getServicePointB().pumping_station->getCode());
             // case where the edge is a station
             if (iterator != stations.end()) {
                 for (auto iterator : iterator->second.getOutputPipelinesCodes()) {
@@ -58,16 +64,27 @@ double request::EdmondsKarp() {
                     output_pipes.push_back(iterator);
                 }
             }
-            // other case (where the edge is not a station and only works if its a water_reservoir)
             else {
-                auto iterator = water_reservoirs.find(current_code);
+                auto iterator = water_reservoirs.find(
+                        this->pipes.at(current_pipe_code).getServicePointB().water_reservoir->getCode());
                 if (iterator != water_reservoirs.end()) {
-                    for (auto iterator : iterator->second.getOutputPipelinesCodes()) {
+                    for (auto iterator: iterator->second.getOutputPipelinesCodes()) {
                         // check if the pipe is active
                         if (!this->pipes.at(iterator).isActive()) {
                             continue;
                         }
                         output_pipes.push_back(iterator);
+                    }
+                } else {
+                    auto iterator = cities.find(this->pipes.at(current_pipe_code).getServicePointB().city->getCode());
+                    if (iterator != cities.end()) {
+                        for (auto iterator: iterator->second.getInputPipelinesCodes()) {
+                            // check if the pipe is active
+                            if (!this->pipes.at(iterator).isActive()) {
+                                continue;
+                            }
+                            output_pipes.push_back(iterator);
+                        }
                     }
                 }
             }
@@ -119,7 +136,7 @@ double request::EdmondsKarp() {
                         break;
                     }
                 }
-                if (is_current_pipe_part_of_predecessor && is_output_node_part_of_super_source && (pipes.at(pipe_code).getCapacity() > pipes.at(pipe_code).getFlow())) {
+                if ((!is_current_pipe_part_of_predecessor) && !(is_output_node_part_of_super_source) && (pipes.at(pipe_code).getCapacity() > pipes.at(pipe_code).getFlow())) {
                     predecessor.push_back(pipe_code);
                     q.push(pipe_code);
                 }
@@ -129,7 +146,7 @@ double request::EdmondsKarp() {
                 if (pipe->isActive()) {
                     if (pipe->getServicePointTypeB() == CITY) {
                         if (supersink.hasCity(pipe->getServicePointB().city->getCode())) {
-                            predecessor_has_sink = true;
+                            predecessor_has_edge_to_sink = true;
                         }
                     }
                 }
@@ -150,7 +167,7 @@ double request::EdmondsKarp() {
                 }
             }
         }
-        if (!there_is_edge_connecting_to_super_sink) {
+        if (there_is_edge_connecting_to_super_sink) {
             // augmenting path found
             // determining the amount of flow we can send
             double bottleneck = std::numeric_limits<double>::infinity();
