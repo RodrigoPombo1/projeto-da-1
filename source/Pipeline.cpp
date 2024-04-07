@@ -40,6 +40,14 @@ double Pipeline::getFlow() {
 }
 
 void Pipeline::setFlow(double flow) {
+    try {
+        if (flow > this->capacity) {
+            throw invalid_argument("Flow cannot be greater than capacity");
+        }
+    } catch (invalid_argument &e) {
+        cout << e.what() << endl;
+        return;
+    }
     this->flow = flow;
     this->residual_capacity = this->capacity - flow;
 }

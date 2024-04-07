@@ -28,6 +28,11 @@ private:
     void setPumpingStationInactive(std::string pumping_station_code);
     void setPipelineInactive(std::string pipeline_code);
     void setAllActive();
+    void updateFlowForEachCity();
+    void updateFlowForEachWaterReservoir();
+    void resetFlowForEachCity();
+    void resetFlowForEachWaterReservoir();
+    void resetFlowForEachPipeline();
 public:
     request();
 };

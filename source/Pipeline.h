@@ -13,6 +13,8 @@
 #include "ReverseEdge.h"
 #include <string>
 #include <vector>
+#include <stdexcept>
+#include <iostream>
 
 class City;
 class Water_reservoir;
