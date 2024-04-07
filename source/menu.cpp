@@ -436,8 +436,7 @@ void menu::reliability_and_sensitivity_to_failures_which_pumping_stations_can_be
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Which pumping stations can be removed without affecting the network";
-        vector<string> result = Request.get_pumping_stations_that_can_be_removed_without_affecting_the_network_and_also_those_that_don_t();
-        // TODO compute result
+        vector<string> result = Request.go_through_each_pumping_station_and_check_what_city_in_deficit_when_they_are_removed();
         int input = this->print_result_and_get_choice_input(current_menu, result);
         switch (input) {
             case -1:
@@ -463,7 +462,7 @@ void menu::reliability_and_sensitivity_to_failures_select_city() {
             this->go_back_to_main_menu = true;
             return;
         } else {
-            bool is_input_valid; // TODO (check if the input is valid = check if city code is valid)
+            bool is_input_valid = Request.check_city_exists(city_code);
             if (!is_input_valid) {
                 cout << "City with code " << city_code << " does not exist\n";
             } else {
@@ -498,8 +497,7 @@ void menu::reliability_and_sensitivity_to_failures_pipelines_make_impossible_to_
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Pipelines that make impossible to deliver to city with code " + city_code;
-        vector<string> result; // TODO
-        // TODO compute result
+        vector<string> result = Request.iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_city_flow_would_be_in_deficit(city_code);
         int input = this->print_result_and_get_choice_input(current_menu, result);
         switch (input) {
             case -1:
@@ -518,8 +516,7 @@ void menu::reliability_and_sensitivity_to_failures_see_the_effect_of_removing_ea
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "See the effect of removing each pipeline of the city with code " + city_code + " to the entire network";
-        vector<string> result; // TODO
-        // TODO compute result
+        vector<string> result = Request.iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_network_flow_would_be_in_deficit(city_code);
         int input = this->print_result_and_get_choice_input(current_menu, result);
         switch (input) {
             case -1:

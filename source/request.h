@@ -43,6 +43,9 @@ public:
     std::vector<std::string> can_all_cities_be_supplied();
     std::vector<std::string> get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_reservoir(std::string reservoir_code);
     std::vector<std::string> get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_station(std::string station_code);
+    std::vector<std::string> go_through_each_pumping_station_and_check_what_city_in_deficit_when_they_are_removed();
+    std::vector<std::string> iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_city_flow_would_be_in_deficit(std::string city_code);
+    std::vector<std::string> iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_network_flow_would_be_in_deficit(std::string city_code);
 };
 
 #endif //PROJETO_DA_1_REQUEST_H

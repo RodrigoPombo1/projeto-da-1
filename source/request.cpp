@@ -438,5 +438,88 @@ std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city_
         result.push_back("All cities can be supplied");
     }
     setAllActive();
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    return result;
+}
+
+vector<string> request::go_through_each_pumping_station_and_check_what_city_in_deficit_when_they_are_removed() {
+    vector<string> result;
+    for (auto &station : this->stations) {
+        result.push_back("Removing pumping station " + station.first + " from the network");
+        setAllActive();
+        setPumpingStationInactive(station.first);
+        resetFlowForEachCity();
+        resetFlowForEachWaterReservoir();
+        resetFlowForEachPipeline();
+        double flow = EdmondsKarp();
+        for (auto &city : this->cities) {
+            if (city.second.getReceivingFlow() < city.second.getDemand()) {
+                result.push_back("City " + city.first + " cannot be supplied: Receiving Flow is " + to_string(city.second.getReceivingFlow()) + " and Demand is " + to_string(city.second.getDemand()));
+            }
+        }
+        if (result.empty()) {
+            result.push_back("All cities can be supplied");
+        }
+    }
+    setAllActive();
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    return result;
+}
+
+vector<string> request::iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_city_flow_would_be_in_deficit(string city_code) {
+    vector<string> result;
+    for (auto &pipe_code : this->cities.at(city_code).getInputPipelinesCodes()) {
+        result.push_back("Removing pipe " + pipe_code + " from the network");
+        setAllActive();
+        setPipelineInactive(pipe_code);
+        resetFlowForEachCity();
+        resetFlowForEachWaterReservoir();
+        resetFlowForEachPipeline();
+        double flow = EdmondsKarp();
+        if (this->cities.at(city_code).getReceivingFlow() < this->cities.at(city_code).getDemand()) {
+            result.push_back("City " + city_code + " cannot be supplied: Receiving Flow is " + to_string(this->cities.at(city_code).getReceivingFlow()) + " and Demand is " + to_string(this->cities.at(city_code).getDemand()));
+        }
+        else {
+            result.push_back("City " + city_code + " can be supplied: Receiving Flow is " + to_string(this->cities.at(city_code).getReceivingFlow()) + " and Demand is " + to_string(this->cities.at(city_code).getDemand()));
+        }
+    }
+    setAllActive();
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    return result;
+}
+
+vector<string> request::iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_network_flow_would_be_in_deficit(string city_code) {
+    vector<string> result;
+    for (auto &pipe_code : this->cities.at(city_code).getInputPipelinesCodes()) {
+        setAllActive();
+        setPipelineInactive(pipe_code);
+        resetFlowForEachCity();
+        resetFlowForEachWaterReservoir();
+        resetFlowForEachPipeline();
+        double flow = EdmondsKarp();
+        vector<string> deficit;
+        for (auto &city : this->cities) {
+            if (city.second.getReceivingFlow() < city.second.getDemand()) {
+                deficit.push_back("City " + city.first + " cannot be supplied: Receiving Flow is " + to_string(this->cities.at(city.first).getReceivingFlow()) + " and Demand is " + to_string(this->cities.at(city.first).getDemand()));
+            }
+        }
+        if (!deficit.empty()) {
+            result.push_back("Removing pipe " + pipe_code + " from the network would cause a deficit in the network:");
+            result.insert(result.end(), deficit.begin(), deficit.end());
+        }
+        else {
+            result.push_back("Removing pipe " + pipe_code + " from the network would not cause a deficit in the network");
+        }
+    }
+    setAllActive();
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
     return result;
 }
