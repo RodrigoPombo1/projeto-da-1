@@ -1,12 +1,9 @@
-//
-// Created by rodri on 03/04/2024.
-//
-
 #include <iostream>
 #include "request.h"
 
 using namespace std;
 
+/// @brief Initializes the request constructor
 request::request() {
     this->csvReader = csv_reader();
     this->cities = this->csvReader.getCities();
@@ -31,6 +28,9 @@ request::request() {
 // o algoritmo no fundo so vai ter o supersink o supersource as pipelines e as pumping stations
 // tudo o q e interagir com cidades e reservatorios vai estar dentro do supersink e do supersource
 
+/// @brief Runs the Edmonds-Karp algorithm
+/// complexity: O(V*E^2) (V = number of vertices, E = number of edges)
+/// @return the maximum flow of the network
 double request::EdmondsKarp() {
     resetFlowForEachCity();
     resetFlowForEachWaterReservoir();
@@ -262,6 +262,9 @@ double request::EdmondsKarp() {
     return flow;
 }
 
+/// @brief Sets a city to inactive
+/// complexity: O(n) (n = number of cities)
+/// @param city_code the code of the city
 void request::setCityInactive(string city_code) {
     this->cities.at(city_code).setActive(false);
     for (auto &pipe_code : this->cities.at(city_code).getInputPipelinesCodes()) {
@@ -269,6 +272,9 @@ void request::setCityInactive(string city_code) {
     }
 }
 
+/// @brief Sets a water reservoir to inactive
+/// complexity: O(n) (n = number of water reservoirs)
+/// @param water_reservoir_code the code of the water reservoir
 void request::setWaterReservoirInactive(string water_reservoir_code) {
     this->water_reservoirs.at(water_reservoir_code).setActive(false);
     for (auto &pipe_code : this->water_reservoirs.at(water_reservoir_code).getOutputPipelinesCodes()) {
@@ -276,6 +282,9 @@ void request::setWaterReservoirInactive(string water_reservoir_code) {
     }
 }
 
+/// @brief Sets a pumping station to inactive
+/// complexity: O(n+m) (n = number of input pipelines, m = number of output pipelines)
+/// @param pumping_station_code the code of the pumping station
 void request::setPumpingStationInactive(string pumping_station_code) {
     this->stations.at(pumping_station_code).setActive(false);
     for (auto &pipe_code : this->stations.at(pumping_station_code).getInputPipelinesCodes()) {
@@ -286,11 +295,16 @@ void request::setPumpingStationInactive(string pumping_station_code) {
     }
 }
 
+/// @brief Sets a pipeline to inactive
+/// complexity: O(1)
+/// @param pipeline_code the code of the pipeline
 void request::setPipelineInactive(string pipeline_code) {
     Pipeline *pipeline_pointer = &this->pipes.at(pipeline_code);
     pipeline_pointer->setActive(false);
 }
 
+/// @brief Sets all the nodes to active
+/// complexity: O(n+m+p+q) (n = number of cities, m = number of water reservoirs, p = number of pumping stations, q = number of pipelines)
 void request::setAllActive() {
     for (auto &city : this->cities) {
         city.second.setActive(true);
@@ -306,6 +320,8 @@ void request::setAllActive() {
     }
 }
 
+/// @brief Updates the flow for each city
+/// complexity: O(n*m) (n = number of cities, m = number of input pipelines)
 void request::updateFlowForEachCity() {
     for (auto &city : this->cities) {
         vector<string> pipes_codes = city.second.getInputPipelinesCodes();
@@ -317,6 +333,8 @@ void request::updateFlowForEachCity() {
     }
 }
 
+/// @brief Updates the flow for each water reservoir
+/// complexity: O(n*m) (n = number of water reservoirs, m = number of output pipelines)
 void request::updateFlowForEachWaterReservoir() {
     for (auto &water_reservoir : this->water_reservoirs) {
         vector<string> pipes_codes = water_reservoir.second.getOutputPipelinesCodes();
@@ -328,24 +346,33 @@ void request::updateFlowForEachWaterReservoir() {
     }
 }
 
+/// @brief Resets the flow for each city
+/// complexity: O(n) (n = number of cities)
 void request::resetFlowForEachCity() {
     for (auto &city : this->cities) {
         city.second.setReceivingFlow(0);
     }
 }
 
+/// @brief Resets the flow for each water reservoir
+/// complexity: O(n) (n = number of water reservoirs)
 void request::resetFlowForEachWaterReservoir() {
     for (auto &water_reservoir : this->water_reservoirs) {
         water_reservoir.second.setOutputFlow(0);
     }
 }
 
+/// @brief Resets the flow for each pipeline
+/// complexity: O(n) (n = number of pipelines)
 void request::resetFlowForEachPipeline() {
     for (auto &pipe : this->pipes) {
         pipe.second.setFlow(0);
     }
 }
 
+/// @brief Gets all cities and each city the maximum amount of water can be supplied
+/// complexity: O(V*E^2) (V = number of vertices, E = number of edges)
+/// @return a vector with all cities and each city the maximum amount of water can be supplied
 std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city() {
     setAllActive();
     resetFlowForEachCity();
@@ -360,10 +387,18 @@ std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city(
     return result;
 }
 
+/// @brief Checks if a city exists
+/// complexity: O(1)
+/// @param city_code the code of the city
+/// @return true if the city exists, false otherwise
 bool request::check_city_exists(string city_code) {
     return this->cities.find(city_code) != this->cities.end();
 }
 
+/// @brief Gets the maximum amount of water that can be supplied to a specific city
+/// complexity: O(V*E^2) (V = number of vertices, E = number of edges)
+/// @param city_code the code of the city
+/// @return the maximum amount of water that can be supplied to the city
 std::string request::get_maximum_amount_of_water_for_a_specific_city(string city_code) {
     setAllActive();
     resetFlowForEachCity();
@@ -373,6 +408,9 @@ std::string request::get_maximum_amount_of_water_for_a_specific_city(string city
     return to_string(this->cities.at(city_code).getReceivingFlow());
 }
 
+/// @brief Gets the all the cities that can be supplied
+/// complexity: O(V*E^2) (V = number of vertices, E = number of edges)
+/// @return a vector with the cities that can be supplied
 std ::vector<std::string> request::can_all_cities_be_supplied() {
     setAllActive();
     resetFlowForEachCity();
@@ -391,10 +429,18 @@ std ::vector<std::string> request::can_all_cities_be_supplied() {
     return result;
 }
 
+/// @brief Checks if a water reservoir exists
+/// complexity: O(1)
+/// @param water_reservoir_code the code of the water reservoir
+/// @return true if the water reservoir exists, false otherwise
 bool request::check_water_reservoir_exists(string water_reservoir_code) {
     return this->water_reservoirs.find(water_reservoir_code) != this->water_reservoirs.end();
 }
 
+/// @brief Gets all cities and each city that get the maximum amount of water that can be supplied after deactivating a specific water reservoir
+/// complexity: O(V*E^2) (V = number of vertices, E = number of edges)
+/// @param reservoir_code the code of the water reservoir
+/// @return a vector with all cities and each city that get the maximum amount of water that can be supplied after deactivating a specific water reservoir
 std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_reservoir(
         std::string reservoir_code) {
     setAllActive();
@@ -416,10 +462,18 @@ std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city_
     return result;
 }
 
+/// @brief Checks if a pumping station exists
+/// complexity: O(1)
+/// @param pumping_station_code the code of the pumping station
+/// @return true if the pumping station exists, false otherwise
 bool request::check_pumping_station_exists(string pumping_station_code) {
     return this->stations.find(pumping_station_code) != this->stations.end();
 }
 
+/// @brief Gets all cities and each city that get the maximum amount of water that can be supplied after deactivating a specific pumping station
+/// complexity: O(V*E^2) (V = number of vertices, E = number of edges)
+/// @param station_code the code of the pumping station
+/// @return a vector with all cities and each city that get the maximum amount of water that can be supplied after deactivating a specific pumping station
 std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_station(
         std::string station_code) {
     setAllActive();
@@ -444,6 +498,9 @@ std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city_
     return result;
 }
 
+/// @brief Gets the cities in deficit when each pumping station is removed
+/// complexity: O(n*V*E^2) (n = number of pumping stations, V = number of vertices, E = number of edges)
+/// @return a vector with the cities in deficit when each pumping station is removed
 vector<string> request::go_through_each_pumping_station_and_check_what_city_in_deficit_when_they_are_removed() {
     vector<string> result;
     for (auto &station : this->stations) {
@@ -470,6 +527,10 @@ vector<string> request::go_through_each_pumping_station_and_check_what_city_in_d
     return result;
 }
 
+/// @brief Gets the cities in deficit when each pipe is removed for each city
+/// complexity: O(n*V*E^2) (n = number of input pipes, V = number of vertices, E = number of edges)
+/// @param city_code the code of the city
+/// @return a vector with the cities in deficit when each pipe is removed
 vector<string> request::iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_city_flow_would_be_in_deficit(string city_code) {
     vector<string> result;
     for (auto &pipe_code : this->cities.at(city_code).getInputPipelinesCodes()) {
@@ -494,6 +555,10 @@ vector<string> request::iterate_over_each_pipe_in_specific_city_and_check_if_rem
     return result;
 }
 
+/// @brief Gets the cities in deficit when each pipe is removed for all cities
+/// complexity: O(n*V*E^2) (n = number of input pipes, V = number of vertices, E = number of edges)
+/// @param city_code the code of the city
+/// @return a vector with the cities in deficit when each pipe is removed for all cities
 vector<string> request::iterate_over_each_pipe_in_specific_city_and_check_if_removing_them_the_network_flow_would_be_in_deficit(string city_code) {
     vector<string> result;
     for (auto &pipe_code : this->cities.at(city_code).getInputPipelinesCodes()) {

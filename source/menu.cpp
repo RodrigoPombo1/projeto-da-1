@@ -1,7 +1,3 @@
-//
-// Created by rodri on 03/04/2024.
-//
-
 #include "menu.h"
 
 using namespace std;
@@ -149,6 +145,7 @@ menu::menu() {
     this->main_menu();
 }
 
+/// @brief Prints the main menu
 void menu::main_menu() {
     while (true) {
         this->go_back_to_main_menu = false;
@@ -171,6 +168,7 @@ void menu::main_menu() {
     }
 }
 
+/// @brief Prints options for the basic service metrics menu
 void menu::basic_service_metrics() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -200,6 +198,7 @@ void menu::basic_service_metrics() {
     }
 }
 
+/// @brief Prints options for the maximum of water that can reach cities menu
 void menu::basic_service_metrics_maximum_of_water_that_can_reach() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -225,6 +224,7 @@ void menu::basic_service_metrics_maximum_of_water_that_can_reach() {
     }
 }
 
+/// @brief Gets the maximum of water that can reach all cities
 void menu::basic_service_metrics_maximum_of_water_that_can_reach_all_cities() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -250,6 +250,7 @@ void menu::basic_service_metrics_maximum_of_water_that_can_reach_all_cities() {
     }
 }
 
+/// @brief Gets the maximum of water that can reach a specific city
 void menu::basic_service_metrics_maximum_of_water_that_can_reach_a_specific_city() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -271,6 +272,9 @@ void menu::basic_service_metrics_maximum_of_water_that_can_reach_a_specific_city
     }
 }
 
+/// @brief Shows the maximum of water that can reach a specific city on output or output to file (not implemented)
+/// @param city_code code of the city
+/// @return true if it wants to show an output or false to output to file for a specific city
 bool menu::show_on_output_or_output_to_file_for_a_specific_city(string city_code) {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -296,6 +300,7 @@ bool menu::show_on_output_or_output_to_file_for_a_specific_city(string city_code
     }
 }
 
+/// @brief Gets all the cities that can be supplied
 void menu::basic_service_metrics_can_the_network_configuration_meet_the_water_needs_of_its_customers() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -316,6 +321,7 @@ void menu::basic_service_metrics_can_the_network_configuration_meet_the_water_ne
     }
 }
 
+/// @brief Prints options for the balance the load menu
 void menu::basic_service_metrics_balance_the_load() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -336,6 +342,7 @@ void menu::basic_service_metrics_balance_the_load() {
     }
 }
 
+/// @brief Prints options for the reliability and sensitivity to failures menu
 void menu::reliability_and_sensitivity_to_failures() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -368,6 +375,7 @@ void menu::reliability_and_sensitivity_to_failures() {
     }
 }
 
+/// @brief Gets all cities and each city that get the maximum amount of water that can be supplied after deactivating a specific water reservoir
 void menu::reliability_and_sensitivity_to_failures_select_water_reservoir_to_remove() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -400,6 +408,7 @@ void menu::reliability_and_sensitivity_to_failures_select_water_reservoir_to_rem
     }
 }
 
+/// @brief Gets all cities and each city that get the maximum amount of water that can be supplied after deactivating a specific pumping station
 void menu::reliability_and_sensitivity_to_failures_select_pumping_station_to_remove() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -432,6 +441,7 @@ void menu::reliability_and_sensitivity_to_failures_select_pumping_station_to_rem
     }
 }
 
+/// @brief Gets the cities in deficit when each pumping station is removed
 void menu::reliability_and_sensitivity_to_failures_which_pumping_stations_can_be_removed_without_affecting_the_network() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -451,6 +461,7 @@ void menu::reliability_and_sensitivity_to_failures_which_pumping_stations_can_be
     }
 }
 
+/// @brief Prints options for the select city menu of the reliability and sensitivity to failures
 void menu::reliability_and_sensitivity_to_failures_select_city() {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -493,6 +504,7 @@ void menu::reliability_and_sensitivity_to_failures_select_city() {
     }
 }
 
+/// @brief Gets the cities in deficit when each pipe is removed for each city
 void menu::reliability_and_sensitivity_to_failures_pipelines_make_impossible_to_deliver(string city_code) {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
@@ -512,6 +524,7 @@ void menu::reliability_and_sensitivity_to_failures_pipelines_make_impossible_to_
     }
 }
 
+/// @brief Gets the cities in deficit when each pipe is removed for all cities
 void menu::reliability_and_sensitivity_to_failures_see_the_effect_of_removing_each_pipeline_of_the_city_to_the_entire_network(string city_code) {
     while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;

@@ -1,11 +1,9 @@
-//
-// Created by rodri on 03/04/2024.
-//
-
 #include "csv_reader.h"
 
 using namespace std;
 
+/// @brief Initializes the csv reader
+/// complexity: 0(1)
 csv_reader::csv_reader() {
     // for the small dataset
 //    this->cities_csv_file_name = "data/Cities_Madeira.csv";
@@ -25,6 +23,8 @@ csv_reader::csv_reader() {
     read_pipes_csv();
 }
 
+/// @brief Reads the cities csv file
+/// complexity: O(n*m) (n = number of lines in the file, m = number of cells in each line)
 void csv_reader::read_cities_csv() {
     ifstream file(this->cities_csv_file_name);
     string line;
@@ -43,6 +43,8 @@ void csv_reader::read_cities_csv() {
     file.close();
 }
 
+/// @brief Reads the stations csv file
+/// complexity: O(n*m) (n = number of lines in the file, m = number of cells in each line)
 void csv_reader::read_stations_csv() {
     ifstream file(this->stations_csv_file_name);
     string line;
@@ -58,6 +60,8 @@ void csv_reader::read_stations_csv() {
     file.close();
 }
 
+/// @brief Reads the reservoir csv file
+/// complexity: O(n) (n = number of lines in the file)
 void csv_reader::read_reservoir_csv() {
     ifstream file(this->reservoir_csv_file_name);
     string line;
@@ -76,6 +80,8 @@ void csv_reader::read_reservoir_csv() {
     file.close();
 }
 
+/// @brief Reads the pipes csv file
+/// complexity: O(n*m) (n = number of lines in the file, m = number of cells in each line)
 void csv_reader::read_pipes_csv() {
     ifstream file(this->pipes_csv_file_name);
     string line;
@@ -213,18 +219,30 @@ void csv_reader::read_pipes_csv() {
     file.close();
 }
 
+/// @brief Gets the cities
+/// complexity: O(1)
+/// @return an unordered map containing the cities
 unordered_map<string, City> csv_reader::getCities() {
     return this->cities;
 }
 
+/// @brief Gets the pipes
+/// complexity: O(1)
+/// @return an unordered map containing the pipes
 unordered_map<string, Pipeline> csv_reader::getPipes() {
     return this->pipes;
 }
 
+/// @brief Gets the reservoirs
+/// complexity: O(1)
+/// @return an unordered map containing the reservoirs
 unordered_map<string, Water_reservoir> csv_reader::getReservoirs() {
     return this->reservoirs;
 }
 
+/// @brief Gets the stations
+/// complexity: O(1)
+/// @return an unordered map containing the stations
 unordered_map<string, Pumping_station> csv_reader::getStations() {
     return this->stations;
 }
