@@ -8,16 +8,16 @@ using namespace std;
 
 csv_reader::csv_reader() {
     // for the small dataset
-    this->cities_csv_file_name = "data/Cities_Madeira.csv";
-    this->pipes_csv_file_name = "data/Pipes_Madeira.csv";
-    this->reservoir_csv_file_name = "data/Reservoirs_Madeira.csv";
-    this->stations_csv_file_name = "data/Stations_Madeira.csv";
+//    this->cities_csv_file_name = "data/Cities_Madeira.csv";
+//    this->pipes_csv_file_name = "data/Pipes_Madeira.csv";
+//    this->reservoir_csv_file_name = "data/Reservoirs_Madeira.csv";
+//    this->stations_csv_file_name = "data/Stations_Madeira.csv";
 
     // for the large dataset
-//    this->cities_csv_file_name = "data/Cities.csv";
-//    this->pipes_csv_file_name = "data/Pipes.csv";
-//    this->reservoir_csv_file_name = "data/Reservoir.csv"; // é mesmo sem o s
-//    this->stations_csv_file_name = "data/Stations.csv";
+    this->cities_csv_file_name = "data/Cities.csv";
+    this->pipes_csv_file_name = "data/Pipes.csv";
+    this->reservoir_csv_file_name = "data/Reservoir.csv"; // é mesmo sem o s
+    this->stations_csv_file_name = "data/Stations.csv";
 
     read_cities_csv();
     read_reservoir_csv();

@@ -35,6 +35,14 @@ private:
     void resetFlowForEachPipeline();
 public:
     request();
+    std::vector<std::string> get_maximum_amount_of_water_all_and_each_city();
+    std::string get_maximum_amount_of_water_for_a_specific_city(std::string city_code);
+    bool check_city_exists(std::string city_code);
+    bool check_water_reservoir_exists(std::string water_reservoir_code);
+    bool check_pumping_station_exists(std::string pumping_station_code);
+    std::vector<std::string> can_all_cities_be_supplied();
+    std::vector<std::string> get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_reservoir(std::string reservoir_code);
+    std::vector<std::string> get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_station(std::string station_code);
 };
 
 #endif //PROJETO_DA_1_REQUEST_H

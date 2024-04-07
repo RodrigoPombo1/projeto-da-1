@@ -146,7 +146,6 @@ int menu::print_result_and_get_choice_input(std::string current_selection, std::
 
 /// @brief Initializes the menu
 menu::menu() {
-    Request = request();
     this->main_menu();
 }
 
@@ -173,7 +172,7 @@ void menu::main_menu() {
 }
 
 void menu::basic_service_metrics() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Basic service metrics";
         vector<string> options = {"Maximum of water that can reach cities", "Can the network configuration meet the water needs of its customers",
@@ -202,7 +201,7 @@ void menu::basic_service_metrics() {
 }
 
 void menu::basic_service_metrics_maximum_of_water_that_can_reach() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Maximum of water that can reach";
         vector<string> options = {"All cities", "A specific city"};
@@ -227,7 +226,7 @@ void menu::basic_service_metrics_maximum_of_water_that_can_reach() {
 }
 
 void menu::basic_service_metrics_maximum_of_water_that_can_reach_all_cities() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Maximum of water that can reach all cities";
         vector<string> options = {"Show on output", "Output to file"};
@@ -239,7 +238,7 @@ void menu::basic_service_metrics_maximum_of_water_that_can_reach_all_cities() {
             case 0:
                 return;
             case 1:
-                // TODO (actual result and then print it on the output)
+                print_result_and_get_choice_input("Maximum of water that can reach all cities", Request.get_maximum_amount_of_water_all_and_each_city());
                 break;
             case 2:
                 // TODO (actual result and then output it in a file)
@@ -252,7 +251,7 @@ void menu::basic_service_metrics_maximum_of_water_that_can_reach_all_cities() {
 }
 
 void menu::basic_service_metrics_maximum_of_water_that_can_reach_a_specific_city() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Maximum of water that can reach a specific city - enter city code";
         string input = this->print_menu_and_get_string_input(current_menu);
@@ -262,19 +261,18 @@ void menu::basic_service_metrics_maximum_of_water_that_can_reach_a_specific_city
             this->go_back_to_main_menu = true;
             return;
         } else {
-            bool is_input_valid; // TODO (check if the input is valid)
+            bool is_input_valid = Request.check_city_exists(input);
             if (!is_input_valid) {
                 cout << "City with code " << input << " does not exist\n";
             } else {
                 show_on_output_or_output_to_file_for_a_specific_city(input);
-                // TODO compute and print result
             }
         }
     }
 }
 
 bool menu::show_on_output_or_output_to_file_for_a_specific_city(string city_code) {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Show on output or output to file for city with code " + city_code;
         vector<string> options = {"Show on output", "Output to file"};
@@ -286,7 +284,7 @@ bool menu::show_on_output_or_output_to_file_for_a_specific_city(string city_code
             case 0:
                 return false;
             case 1:
-                // TODO (actual result and then print it on the output)
+                print_result_and_get_choice_input("Maximum of water that can reach city with code " + city_code, {Request.get_maximum_amount_of_water_for_a_specific_city(city_code)});
                 break;
             case 2:
                 // TODO (actual result and then output it in a file)
@@ -299,10 +297,10 @@ bool menu::show_on_output_or_output_to_file_for_a_specific_city(string city_code
 }
 
 void menu::basic_service_metrics_can_the_network_configuration_meet_the_water_needs_of_its_customers() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Can the network configuration meet the water needs of its customers";
-        vector<string> result; // TODO
+        vector<string> result = Request.can_all_cities_be_supplied();
         // TODO compute result
         int input = this->print_result_and_get_choice_input(current_menu, result);
         switch (input) {
@@ -319,7 +317,7 @@ void menu::basic_service_metrics_can_the_network_configuration_meet_the_water_ne
 }
 
 void menu::basic_service_metrics_balance_the_load() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Balance the load";
         vector<string> result; // TODO
@@ -339,7 +337,7 @@ void menu::basic_service_metrics_balance_the_load() {
 }
 
 void menu::reliability_and_sensitivity_to_failures() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Reliability and sensitivity to failures";
         vector<string> options = {"Select water reservoir to remove", "Select pumping station to remove",
@@ -371,7 +369,7 @@ void menu::reliability_and_sensitivity_to_failures() {
 }
 
 void menu::reliability_and_sensitivity_to_failures_select_water_reservoir_to_remove() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Select water reservoir to remove";
         string input = this->print_menu_and_get_string_input(current_menu);
@@ -381,18 +379,29 @@ void menu::reliability_and_sensitivity_to_failures_select_water_reservoir_to_rem
             this->go_back_to_main_menu = true;
             return;
         } else {
-            bool is_input_valid; // TODO (check if the input is valid)
+            bool is_input_valid = Request.check_water_reservoir_exists(input);
             if (!is_input_valid) {
                 cout << "Water reservoir with code " << input << " does not exist\n";
             } else {
-                // TODO compute and print result
+                vector<string> result = Request.get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_reservoir(input);
+                int input2 = print_result_and_get_choice_input("Removed water reservoir: " + input, result);
+                switch (input2) {
+                    case -1:
+                        this->go_back_to_main_menu = true;
+                        return;
+                    case 0:
+                        return;
+                    default:
+                        cout << "Invalid input, please try again\n";
+                        break;
+                }
             }
         }
     }
 }
 
 void menu::reliability_and_sensitivity_to_failures_select_pumping_station_to_remove() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Select pumping station to remove";
         string input = this->print_menu_and_get_string_input(current_menu);
@@ -402,21 +411,32 @@ void menu::reliability_and_sensitivity_to_failures_select_pumping_station_to_rem
             this->go_back_to_main_menu = true;
             return;
         } else {
-            bool is_input_valid; // TODO (check if the input is valid)
+            bool is_input_valid = Request.check_pumping_station_exists(input);
             if (!is_input_valid) {
                 cout << "Pumping station with code " << input << " does not exist\n";
             } else {
-                // TODO compute and print result
+                vector<string> result = Request.get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_station(input);
+                int input2 = print_result_and_get_choice_input("Removed pumping station: " + input, result);
+                switch (input2) {
+                    case -1:
+                        this->go_back_to_main_menu = true;
+                        return;
+                    case 0:
+                        return;
+                    default:
+                        cout << "Invalid input, please try again\n";
+                        break;
+                }
             }
         }
     }
 }
 
 void menu::reliability_and_sensitivity_to_failures_which_pumping_stations_can_be_removed_without_affecting_the_network() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Which pumping stations can be removed without affecting the network";
-        vector<string> result; // TODO
+        vector<string> result = Request.get_pumping_stations_that_can_be_removed_without_affecting_the_network_and_also_those_that_don_t();
         // TODO compute result
         int input = this->print_result_and_get_choice_input(current_menu, result);
         switch (input) {
@@ -433,7 +453,7 @@ void menu::reliability_and_sensitivity_to_failures_which_pumping_stations_can_be
 }
 
 void menu::reliability_and_sensitivity_to_failures_select_city() {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Select city";
         string city_code = this->print_menu_and_get_string_input(current_menu);
@@ -475,7 +495,7 @@ void menu::reliability_and_sensitivity_to_failures_select_city() {
 }
 
 void menu::reliability_and_sensitivity_to_failures_pipelines_make_impossible_to_deliver(string city_code) {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "Pipelines that make impossible to deliver to city with code " + city_code;
         vector<string> result; // TODO
@@ -495,7 +515,7 @@ void menu::reliability_and_sensitivity_to_failures_pipelines_make_impossible_to_
 }
 
 void menu::reliability_and_sensitivity_to_failures_see_the_effect_of_removing_each_pipeline_of_the_city_to_the_entire_network(string city_code) {
-    while (true) {
+    while (!this->go_back_to_main_menu) {
         this->go_back_to_main_menu = false;
         string current_menu = "See the effect of removing each pipeline of the city with code " + city_code + " to the entire network";
         vector<string> result; // TODO

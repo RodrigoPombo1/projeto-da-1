@@ -14,18 +14,18 @@ request::request() {
     this->stations = this->csvReader.getStations();
     this->pipes = this->csvReader.getPipes();
 
-    // for test TODO: remove
-    cout << EdmondsKarp() << "\n";
-    cout << cities.at("C_1").getReceivingFlow() << "\n";
-    cout << cities.at("C_2").getReceivingFlow() << "\n";
-    cout << cities.at("C_3").getReceivingFlow() << "\n";
-    cout << cities.at("C_4").getReceivingFlow() << "\n";
-    cout << cities.at("C_5").getReceivingFlow() << "\n";
-    cout << cities.at("C_6").getReceivingFlow() << "\n";
-    cout << cities.at("C_7").getReceivingFlow() << "\n";
-    cout << cities.at("C_8").getReceivingFlow() << "\n";
-    cout << cities.at("C_9").getReceivingFlow() << "\n";
-    cout << cities.at("C_10").getReceivingFlow() << "\n";
+//    // for test TODO: remove
+//    cout << EdmondsKarp() << "\n";
+//    cout << cities.at("C_1").getReceivingFlow() << "\n";
+//    cout << cities.at("C_2").getReceivingFlow() << "\n";
+//    cout << cities.at("C_3").getReceivingFlow() << "\n";
+//    cout << cities.at("C_4").getReceivingFlow() << "\n";
+//    cout << cities.at("C_5").getReceivingFlow() << "\n";
+//    cout << cities.at("C_6").getReceivingFlow() << "\n";
+//    cout << cities.at("C_7").getReceivingFlow() << "\n";
+//    cout << cities.at("C_8").getReceivingFlow() << "\n";
+//    cout << cities.at("C_9").getReceivingFlow() << "\n";
+//    cout << cities.at("C_10").getReceivingFlow() << "\n";
 }
 
 // o algoritmo no fundo so vai ter o supersink o supersource as pipelines e as pumping stations
@@ -51,6 +51,10 @@ double request::EdmondsKarp() {
     double flow = 0;
 
     while (true) {
+        ////////////////
+        // BFS
+        ////////////////
+
         // criar queue para o bfs
         queue<string> q;
         auto water_reservoirs_from_supersource = supersource.getReservoirsCodes();
@@ -65,6 +69,8 @@ double request::EdmondsKarp() {
         while (!q.empty() && !predecessor_has_node_of_supersink) {
             string current_node_code = q.front();
             q.pop();
+
+            //////////// checking regular output pipes
 
             // get the edges to iterate through
             std::vector<std::string> output_pipes;
@@ -148,7 +154,7 @@ double request::EdmondsKarp() {
                 }
             }
 
-            // condição para a paragem da loop do bfs inteiro
+            ////////////// condição para a paragem da loop do bfs inteiro
             for (auto element : predecessor) {
                 if (supersink.hasCity(element.first)) {
                     predecessor_has_node_of_supersink = true;
@@ -156,6 +162,10 @@ double request::EdmondsKarp() {
                 }
             }
         }
+
+        /////////////////////////////////////////
+        // Dealing with found augmenting path
+        /////////////////////////////////////////
 
         // check if a predecessor pipe leads to the supersink
         bool there_is_node_in_predecessor_part_of_supersink = false;
@@ -179,7 +189,20 @@ double request::EdmondsKarp() {
                 if (residual_capacity < bottleneck) {
                     bottleneck = residual_capacity;
                 }
-                current_node_code = pipe->getServicePointA().city->getCode();
+                switch (pipe->getServicePointTypeA()) {
+                    case CITY : {
+                        current_node_code = pipe->getServicePointA().city->getCode();
+                        break;
+                    }
+                    case PUMPING_STATION : {
+                        current_node_code = pipe->getServicePointA().pumping_station->getCode();
+                        break;
+                    }
+                    case WATER_RESERVOIR : {
+                        current_node_code = pipe->getServicePointA().water_reservoir->getCode();
+                        break;
+                    }
+                }
             }
 
             // check if the source can send this much flow
@@ -210,7 +233,20 @@ double request::EdmondsKarp() {
                     pipe->setFlow(pipe->getFlow() + bottleneck);
                     reverse_edges.at(code_of_edge_that_led_to_current_node).setFlow(
                             reverse_edges.at(code_of_edge_that_led_to_current_node).getFlow() - bottleneck);
-                    current_node_code = pipe->getServicePointA().city->getCode();
+                    switch (pipe->getServicePointTypeA()) {
+                        case CITY : {
+                            current_node_code = pipe->getServicePointA().city->getCode();
+                            break;
+                        }
+                        case PUMPING_STATION : {
+                            current_node_code = pipe->getServicePointA().pumping_station->getCode();
+                            break;
+                        }
+                        case WATER_RESERVOIR : {
+                            current_node_code = pipe->getServicePointA().water_reservoir->getCode();
+                            break;
+                        }
+                    }
                 }
                 flow += bottleneck;
                 updateFlowForEachCity();
@@ -308,4 +344,99 @@ void request::resetFlowForEachPipeline() {
     for (auto &pipe : this->pipes) {
         pipe.second.setFlow(0);
     }
+}
+
+std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city() {
+    setAllActive();
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    double flow = EdmondsKarp();
+    vector<string> result;
+    result.push_back("Total flow of the network: " + to_string(flow));
+    for (auto &city : this->cities) {
+        result.push_back("City " + city.first + " received " + to_string(city.second.getReceivingFlow()) + " of water");
+    }
+    return result;
+}
+
+bool request::check_city_exists(string city_code) {
+    return this->cities.find(city_code) != this->cities.end();
+}
+
+std::string request::get_maximum_amount_of_water_for_a_specific_city(string city_code) {
+    setAllActive();
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    double flow = EdmondsKarp();
+    return to_string(this->cities.at(city_code).getReceivingFlow());
+}
+
+std ::vector<std::string> request::can_all_cities_be_supplied() {
+    setAllActive();
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    double flow = EdmondsKarp();
+    vector<string> result;
+    for (auto &city : this->cities) {
+        if (city.second.getReceivingFlow() < city.second.getDemand()) {
+            result.push_back("City " + city.first + " cannot be supplied: Receiving Flow is " + to_string(city.second.getReceivingFlow()) + " and Demand is " + to_string(city.second.getDemand()));
+        }
+    }
+    if (result.empty()) {
+        result.push_back("All cities can be supplied");
+    }
+    return result;
+}
+
+bool request::check_water_reservoir_exists(string water_reservoir_code) {
+    return this->water_reservoirs.find(water_reservoir_code) != this->water_reservoirs.end();
+}
+
+std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_reservoir(
+        std::string reservoir_code) {
+    setAllActive();
+    setWaterReservoirInactive(reservoir_code);
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    double flow = EdmondsKarp();
+    vector<string> result;
+    for (auto &city : this->cities) {
+        if (city.second.getReceivingFlow() < city.second.getDemand()) {
+            result.push_back("City " + city.first + " cannot be supplied: Receiving Flow is " + to_string(city.second.getReceivingFlow()) + " and Demand is " + to_string(city.second.getDemand()));
+        }
+    }
+    if (result.empty()) {
+        result.push_back("All cities can be supplied");
+    }
+    setAllActive();
+    return result;
+}
+
+bool request::check_pumping_station_exists(string pumping_station_code) {
+    return this->stations.find(pumping_station_code) != this->stations.end();
+}
+
+std::vector<std::string> request::get_maximum_amount_of_water_all_and_each_city_that_cannot_be_supplied_but_deactivate_station(
+        std::string station_code) {
+    setAllActive();
+    setPumpingStationInactive(station_code);
+    resetFlowForEachCity();
+    resetFlowForEachWaterReservoir();
+    resetFlowForEachPipeline();
+    double flow = EdmondsKarp();
+    vector<string> result;
+    for (auto &city : this->cities) {
+        if (city.second.getReceivingFlow() < city.second.getDemand()) {
+            result.push_back("City " + city.first + " cannot be supplied: Receiving Flow is " + to_string(city.second.getReceivingFlow()) + " and Demand is " + to_string(city.second.getDemand()));
+        }
+    }
+    if (result.empty()) {
+        result.push_back("All cities can be supplied");
+    }
+    setAllActive();
+    return result;
 }
