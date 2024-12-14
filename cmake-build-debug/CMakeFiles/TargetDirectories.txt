@@ -1,3 +1,0 @@
-C:/Users/Admin/Documents/GitHub/projeto-da-1/cmake-build-debug/CMakeFiles/projeto_da_1.dir
-C:/Users/Admin/Documents/GitHub/projeto-da-1/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Admin/Documents/GitHub/projeto-da-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
